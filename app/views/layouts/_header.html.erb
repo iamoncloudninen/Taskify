@@ -1,8 +1,24 @@
-<% if user_signed_in? %>
-  <%= button_to "ログアウト", destroy_user_session_path, method: :delete %>
-  <%= link_to "マイページ", user_path(current_user) %>
-<% else %>
-  <%= link_to "ログイン", new_user_session_path %>
-  <%= link_to "新規登録", new_user_registration_path %>
-<% end %>
-
+<div class="Header">
+  <div class="wrapper site-header__wrapper">
+    <%= link_to "Taskify", root_path, class: "header-logo" %>
+    <nav class="nav">
+      <button class="nav__toggle" aria-expanded="false" type="button">
+        menu
+      </button>
+      <ul class="nav__wrapper">
+        <li class="nav__item"><a href="#">Dashboard</a></li>
+        <li class="nav__item"><%= link_to "Timeline", timeline_index_path %></li>
+        <li class="nav__item"><a href="#">Pomodoro</a></li>
+        <li>
+          <% if user_signed_in? %>
+           <%= button_to "ログアウト", destroy_user_session_path, method: :delete, class: "nav__item" %>
+           <%= link_to "マイページ", user_path(current_user), class: "nav__item"  %>
+          <% else %>
+           <%= link_to "ログイン", new_user_session_path, class: "nav__item"  %>
+           <%= link_to "新規登録", new_user_registration_path, class: "nav__item"  %>
+          <% end %>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
