@@ -15,7 +15,7 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
     @task.user_id = current_user.id
     @task.save
-    redirect_to task_path(@task)
+    redirect_to dashboard_show_path
   end
 
   def edit

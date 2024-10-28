@@ -1,0 +1,23 @@
+<h1>ダッシュボード</h1>
+
+<h2>達成されていないタスク一覧（本日以降が期限）</h2>
+<% if @upcoming_tasks.any? %>
+  <ul>
+    <% @upcoming_tasks.each do |task| %>
+      <li><%= task.content %> (期限: <%= task.deadline %>)</li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>達成されていないタスクはありません。</p>
+<% end %>
+
+<h2>本日達成したタスク一覧</h2>
+<% if @completed_tasks_today.any? %>
+  <ul>
+    <% @completed_tasks_today.each do |task| %>
+      <li><%= task.content %> (達成日: <%= task.completed_at %>)</li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>本日達成したタスクはありません。</p>
+<% end %>

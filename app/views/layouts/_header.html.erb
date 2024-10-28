@@ -1,12 +1,12 @@
 <div class="Header">
   <div class="wrapper site-header__wrapper">
-    <%= link_to "Taskify", root_path, class: "header-logo" %>
+    <%= link_to "Taskify", dashboard_show_path, class: "header-logo" %>
     <nav class="nav">
       <button class="nav__toggle" aria-expanded="false" type="button">
         menu
       </button>
       <ul class="nav__wrapper">
-        <li class="nav__item"><a href="#">Dashboard</a></li>
+        <li class="nav__item"><%= link_to "Dashboard", dashboard_show_path %></li>
         <li class="nav__item"><%= link_to "Timeline", timeline_index_path %></li>
         <li class="nav__item"><a href="#">Pomodoro</a></li>
         <li>
