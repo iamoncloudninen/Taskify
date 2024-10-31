@@ -4,7 +4,10 @@
 <% if @upcoming_tasks.any? %>
   <ul>
     <% @upcoming_tasks.each do |task| %>
-      <li><%= task.content %> (期限: <%= task.deadline %>)</li>
+      <li>
+        <%= task.content %> (期限: <%= task.deadline %>)
+        <%= button_to "達成報告", complete_task_path(task), method: :patch, data: { confirm: 'このタスクを達成しますか？' } %>
+      </li>
     <% end %>
   </ul>
 <% else %>
@@ -15,7 +18,10 @@
 <% if @completed_tasks_today.any? %>
   <ul>
     <% @completed_tasks_today.each do |task| %>
-      <li><%= task.content %> (達成日: <%= task.completed_at %>)</li>
+      <li>
+        <%= task.content %>
+        <%= button_to "未達成に戻す", incomplete_task_path(task), method: :patch, data: { confirm: 'このタスクを未達成に戻しますか？' } %>
+      </li>
     <% end %>
   </ul>
 <% else %>

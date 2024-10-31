@@ -28,6 +28,18 @@ class TasksController < ApplicationController
     redirect_to task_path(@task)
   end
 
+  def complete
+    @task = Task.find(params[:id])
+    @task.update(completed: true, completed_at: Time.zone.now)
+    redirect_to dashboard_show_path, notice: 'タスクを達成しました'
+  end
+
+  def incomplete
+    @task = Task.find(params[:id])
+    @task.update(completed: false, completed_at: nil)
+    redirect_to dashboard_show_path, notice: 'タスクを戻しました'
+  end
+
   private
   def task_params
     params.require(:task).permit(:content, :deadline, :priority, :image)
