@@ -1,13 +1,5 @@
-<h1>Tasks#show</h1>
-<p>Find me in app/views/tasks/show.html.erb</p>
-<%= attachment_image_tag @task.user, :profile_image, fallback: "no_image.png" %>
-<%= link_to user_path(@task.user) do %>
-  <%= @task.user.username %>
-<% end %>
-<% if @task.user.id == current_user.id %>
-  <%= link_to "編集", edit_task_path(@task) %>
-<% end %>
-<%= attachment_image_tag @task, :image %>
+<h1>タスク詳細</h1>
 <%= @task.content %>
-<%= @task.deadline %>
+<%= format_datetime(@task.deadline) %>
 <%= @task.priority %>
+<%= link_to "ダッシュボードに戻る", dashboard_show_path %>

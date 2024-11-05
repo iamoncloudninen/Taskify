@@ -26,7 +26,7 @@ class TasksController < ApplicationController
   def update
     @task = Task.find(params[:id])
     @task.update(task_params)
-    redirect_to task_path(@task)
+    redirect_to dashboard_show_path(@task)
   end
 
   def complete

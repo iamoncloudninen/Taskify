@@ -1,5 +1,4 @@
-<h1>Tasks#new</h1>
-<p>Find me in app/views/tasks/new.html.erb</p>
+<h1>タスク作成</h1>
 
 <%= form_for @task do |f| %>
     <%= f.label :content %>
@@ -15,4 +14,5 @@
     <%= f.file_field :image %>
     
     <%= f.submit %>
-  <% end %>
+<% end %>
+<%= link_to "ダッシュボードに戻る", dashboard_show_path %>

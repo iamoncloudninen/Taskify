@@ -1,11 +1,16 @@
 <h1>ダッシュボード</h1>
 
 <h2>達成されていないタスク一覧（本日以降が期限）</h2>
+<%= link_to "タスク作成", new_task_path %>
 <% if @upcoming_tasks.any? %>
   <ul>
     <% @upcoming_tasks.each do |task| %>
       <li>
-        <%= task.content %> (期限: <%= task.deadline %>)
+        <% if task.priority == true %>
+          <span>優先</span>
+        <% end %>
+        <%= link_to task.content, task_path(task) %> (期限: <%= format_datetime(task.deadline) %>)
+        <%= link_to "編集", edit_task_path(task) %>
         <%= button_to "達成報告", complete_task_path(task), method: :patch, data: { confirm: 'このタスクを達成しますか？' } %>
       </li>
     <% end %>
