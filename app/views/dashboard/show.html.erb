@@ -19,6 +19,21 @@
   <p>達成されていないタスクはありません。</p>
 <% end %>
 
+<h2>期限を過ぎたタスク</h2>
+<% if @outdated_tasks.any? %>
+  <ul>
+    <% @outdated_tasks.each do |task| %>
+      <li>
+        <%= link_to task.content, task_path(task) %> (期限: <%= format_datetime(task.deadline) %>)
+        <%= link_to "編集", edit_task_path(task) %>
+        <%= button_to "達成報告", complete_task_path(task), method: :patch, data: { confirm: 'このタスクを達成しますか？' } %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>期限を過ぎたタスクはありません</p>
+<% end %>
+
 <h2>本日達成したタスク一覧</h2>
 <% if @completed_tasks_today.any? %>
   <ul>
