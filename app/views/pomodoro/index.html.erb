@@ -1,0 +1,72 @@
+<div id="pomodoro-timer">
+  <h1>ポモドーロタイマー</h1>
+  <p id="timer">25:00</p>
+  <button id="startButton" onclick="startTimer()">開始</button>
+  <button id="stopButton" onclick="stopTimer()">ストップ</button>
+  <button id="resetButton" onclick="resetTimer()">リセット</button>
+</div>
+
+<script>
+  let timer;
+  let isRunning = false;
+  let totalTime = 25 * 60; // 25分
+  let isBreakTime = false;
+
+  const startButton = document.getElementById('startButton');
+  const stopButton = document.getElementById('stopButton');
+  const resetButton = document.getElementById('resetButton');
+
+  startButton.disabled = false;
+  stopButton.disabled = true;
+  resetButton.disabled = true;
+
+  function startTimer() {
+    if (!isRunning) {
+      isRunning = true;
+      timer = setInterval(countdown, 1000);
+    }
+    startButton.disabled = true;
+    stopButton.disabled = false;
+    resetButton.disabled = false;
+  }
+
+  function countdown() {
+    if (totalTime > 0) {
+      totalTime--;
+      const minutes = Math.floor(totalTime / 60);
+      const seconds = totalTime % 60;
+      document.getElementById('timer').innerText = minutes + ":" + (seconds < 10 ? '0' + seconds : seconds);
+    } else {
+      clearInterval(timer);
+      isRunning = false;
+      if (isBreakTime) {
+        alert('休憩が終了しました。作業を再開しましょう！');
+        totalTime = 25 * 60;
+        isBreakTime = false;
+      } else {
+        alert('ポモドーロが終了しました。休憩をとりましょう！');
+        totalTime = 5 * 60;
+        isBreakTime = true;
+      }
+      startTimer();
+    }
+  }
+
+  function stopTimer() {
+    clearInterval(timer);
+    isRunning = false;
+    startButton.disabled = false;
+    stopButton.disabled = true;
+    resetButton.disabled = false;
+  }
+
+  function resetTimer() {
+    clearInterval(timer);
+    isRunning = false;
+    totalTime = 25 * 60;
+    document.getElementById('timer').innerText = "25:00";
+    startButton.disabled = false;
+    stopButton.disabled = true;
+    resetButton.disabled = true;
+  }
+</script>
