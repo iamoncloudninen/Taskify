@@ -36,6 +36,7 @@
 
 <h2>本日達成したタスク一覧</h2>
 <% if @completed_tasks_today.any? %>
+  <%= link_to "投稿を作成する", new_timeline_path %>
   <ul>
     <% @completed_tasks_today.each do |task| %>
       <li>

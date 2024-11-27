@@ -1,0 +1,17 @@
+<h1>新しい投稿を作成</h1>
+
+<%= form_with model: @timeline_post, url: timeline_index_path do |f| %>
+  <div>
+    <%= f.label :content, "投稿内容" %>
+    <%= f.text_area :content, rows: 5 %>
+  </div>
+  <div>
+    <%= f.label :task_ids, "関連するタスク" %>
+    <%= f.collection_check_boxes :task_ids, @tasks, :id, :content %>
+  </div>
+  <div>
+    <%= f.submit "投稿する" %>
+  </div>
+<% end %>
+<%= link_to '戻る', dashboard_show_path %>
+

@@ -9,16 +9,20 @@
 <script>
   let timer;
   let isRunning = false;
-  let totalTime = 25 * 60; // 25分
+  let totalTime = 25 * 60;
   let isBreakTime = false;
 
-  const startButton = document.getElementById('startButton');
-  const stopButton = document.getElementById('stopButton');
-  const resetButton = document.getElementById('resetButton');
+  let startButton, stopButton, resetButton;
+  
+  document.addEventListener('DOMContentLoaded', function () {
+    startButton = document.getElementById('startButton');
+    stopButton = document.getElementById('stopButton');
+    resetButton = document.getElementById('resetButton');
 
-  startButton.disabled = false;
-  stopButton.disabled = true;
-  resetButton.disabled = true;
+    startButton.disabled = false;
+    stopButton.disabled = true;
+    resetButton.disabled = true;
+  });
 
   function startTimer() {
     if (!isRunning) {
@@ -35,7 +39,8 @@
       totalTime--;
       const minutes = Math.floor(totalTime / 60);
       const seconds = totalTime % 60;
-      document.getElementById('timer').innerText = minutes + ":" + (seconds < 10 ? '0' + seconds : seconds);
+      document.getElementById('timer').innerText =
+        minutes + ":" + (seconds < 10 ? '0' + seconds : seconds);
     } else {
       clearInterval(timer);
       isRunning = false;

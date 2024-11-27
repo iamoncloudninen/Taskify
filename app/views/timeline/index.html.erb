@@ -1,11 +1,15 @@
 <h1>タイムライン</h1>
-<% @tasks.each do |task| %>
-  <div class="post">
-    <%= attachment_image_tag task.user, :profile_image, fallback: "no_image.png", width: 50, height: 50 %>
-    <%= link_to user_path(task.user) do %>
-      <%= task.user.username %>
-    <% end %>
-    <%= attachment_image_tag task, :image, width: 50, height: 50 %>
-    <%= task.content %>
+
+<% @timeline_posts.each do |post| %>
+  <div>
+    <%= attachment_image_tag @user, :profile_image, fallback: "no_image.png", size: "50x50" %>
+    <%= post.user.username %>
+    <p>コメント：<%= post.content %></p>
+    <p>達成したタスク:</p>
+    <ul>
+      <% post.tasks.each do |task| %>
+        <li><%= task.content %></li>
+      <% end %>
+    </ul>
   </div>
 <% end %>
