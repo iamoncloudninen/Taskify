@@ -8,6 +8,6 @@ Rails.application.routes.draw do
     patch :incomplete, on: :member
   end
   devise_for :users
-  resources :users, only: [:show, :index, :edit, :update]
+  resources :users, only: [:show, :index, :edit, :update, :destroy]
   root to: "home#index"
 end

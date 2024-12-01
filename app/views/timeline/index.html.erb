@@ -2,7 +2,7 @@
 
 <% @timeline_posts.each do |post| %>
   <div>
-    <%= attachment_image_tag @user, :profile_image, fallback: "no_image.png", size: "50x50" %>
+    <%= attachment_image_tag post.user, :profile_image, fallback: "no_image.png", size: "50x50" %>
     <%= post.user.username %>
     <p>コメント：<%= post.content %></p>
     <p>達成したタスク:</p>
