@@ -5,6 +5,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @timeline_posts = @user.timeline_posts.order(created_at: :desc)
   end
 
   def edit

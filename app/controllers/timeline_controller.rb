@@ -2,7 +2,7 @@ class TimelineController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @timeline_posts = TimelinePost.all
+    @timeline_posts = TimelinePost.all.order(created_at: :desc)
   end
 
   def new
@@ -19,6 +19,14 @@ class TimelineController < ApplicationController
       redirect_to timeline_index_path, notice: '投稿が成功しました！'
     else
       render :new
+    end
+  end
+
+  def destroy
+    @timeline_post = TimelinePost.find(params[:id])
+    if @timeline_post.destroy
+      flash[:notice] = "投稿を削除しました。"
+      redirect_to request.referer
     end
   end
 

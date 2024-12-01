@@ -6,3 +6,16 @@
   <%= link_to "編集", edit_user_path(@user) %>
   <%= link_to 'アカウント削除', user_path(@user), method: :delete, data: { confirm: '本当に削除しますか？' } %>
 <% end %>
+<h2>自分の投稿一覧</h2>
+<% @timeline_posts.each do |post| %>
+  <%= attachment_image_tag post.user, :profile_image, fallback: "no_image.png", size: "50x50" %>
+  <%= post.user.username %>
+  <%= link_to '投稿を削除', timeline_path(post), method: :delete, data: { confirm: '本当に削除しますか？' } %>
+  <p>コメント：<%= post.content %></p>
+  <p>達成したタスク:</p>
+  <ul>
+    <% post.tasks.each do |task| %>
+      <li><%= task.content %></li>
+    <% end %>
+  </ul>
+<% end %>
