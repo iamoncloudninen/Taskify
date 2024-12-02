@@ -1,18 +1,15 @@
 <h1>タスク作成</h1>
 
 <%= form_for @task do |f| %>
-    <%= f.label :content %>
+    <%= f.label :内容 %>
     <%= f.text_field :content %>
     
-    <%= f.label :deadline %>
+    <%= f.label :期限 %>
     <%= f.datetime_select :deadline %>
     
-    <%= f.label :priority %>
+    <%= f.label :優先 %>
     <%= f.check_box :priority %>
     
-    <%= f.label :image %>
-    <%= f.file_field :image %>
-    
-    <%= f.submit %>
+    <%= f.submit "タスクを作成する" %>
 <% end %>
 <%= link_to "ダッシュボードに戻る", dashboard_show_path %>

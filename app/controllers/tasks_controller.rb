@@ -15,8 +15,10 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
     @task.user_id = current_user.id
     @task.completed = false
-    @task.save
-    redirect_to dashboard_show_path
+    if @task.save
+      flash[:notice] = "タスクを作成しました。"
+      redirect_to dashboard_show_path
+    end
   end
 
   def edit
@@ -26,6 +28,7 @@ class TasksController < ApplicationController
   def update
     @task = Task.find(params[:id])
     @task.update(task_params)
+    flash[:notice] = "タスクを更新しました。"
     redirect_to dashboard_show_path(@task)
   end
 

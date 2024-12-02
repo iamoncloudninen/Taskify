@@ -1,7 +1,37 @@
 ja:
+  activerecord:
+    models:
+      task: タスク
+    attributes:
+      task:
+        user_id: ユーザーID
+        content: 内容
+        deadline: 期限
+        priority: 優先
+        completed: 完了
+        image_id: 画像ID
+        completed_at: 完了日時
   time:
     formats:
       default: "%Y年%m月%d日 %H:%M"
   date:
     formats:
       default: "%Y年%m月%d日"
+    order: 
+      - :year
+      - :month
+      - :day
+    month_names:
+      - ~
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
+      - 11
+      - 12
