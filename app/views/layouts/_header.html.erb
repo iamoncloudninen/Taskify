@@ -1,23 +1,51 @@
 <div class="Header">
   <div class="wrapper site-header__wrapper">
-    <%= link_to "Taskify", dashboard_show_path, class: "header-logo" %>
+    <div class="logo">
+      <%= link_to image_tag("headerlogo.PNG", alt: "Taskify Logo", class: "header__logo"), root_path %>
+    </div>
     <nav class="nav">
       <button class="nav__toggle" aria-expanded="false" type="button">
         menu
       </button>
       <ul class="nav__wrapper">
-        <li class="nav__item"><%= link_to "Dashboard", dashboard_show_path %></li>
-        <li class="nav__item"><%= link_to "Timeline", timeline_index_path %></li>
-        <li class="nav__item"><%= link_to "Pomodoro", pomodoro_index_path %></li>
-        <li>
-          <% if user_signed_in? %>
-           <%= button_to "ログアウト", destroy_user_session_path, method: :delete, class: "nav__item" %>
-           <%= link_to "マイページ", user_path(current_user), class: "nav__item"  %>
-          <% else %>
-           <%= link_to "ログイン", new_user_session_path, class: "nav__item"  %>
-           <%= link_to "新規登録", new_user_registration_path, class: "nav__item"  %>
-          <% end %>
-        </li>
+        <% if user_signed_in? %>
+          <li class="nav__item">
+            <%= link_to dashboard_show_path do %>
+              <i class="fa fa-chart-line"></i> ダッシュボード
+            <% end %>
+          </li>
+          <li class="nav__item">
+            <%= link_to timeline_index_path do %>
+              <i class="fa fa-clock"></i> タイムライン
+            <% end %>
+          </li>
+          <li class="nav__item">
+            <%= link_to pomodoro_index_path do %>
+              <i class="fa fa-stopwatch"></i> ポモドーロ
+            <% end %>
+          </li>
+          <li class="nav__item">
+            <%= link_to user_path(current_user) do %>
+              <i class="fa fa-user-circle"></i> マイページ
+            <% end %>
+          </li>
+          <li class="nav__item">
+            <%= link_to destroy_user_session_path, method: :delete do %>
+              <i class="fa fa-sign-out-alt"></i> ログアウト
+            <% end %>
+          </li>
+        <% else %>
+          <li class="nav__item">
+            <%= link_to new_user_session_path do %>
+              <i class="fa fa-sign-in-alt"></i> ログイン
+            <% end %>
+          </li>
+          <li class="nav__item">
+            <%= link_to new_user_registration_path do %>
+              <i class="fa fa-user-plus"></i> 新規登録
+            <% end %>
+          </li>
+        <% end %>
       </ul>
     </nav>
   </div>
