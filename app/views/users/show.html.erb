@@ -10,7 +10,9 @@
 <% @timeline_posts.each do |post| %>
   <%= attachment_image_tag post.user, :profile_image, fallback: "no_image.png", size: "50x50" %>
   <%= post.user.username %>
-  <%= link_to '投稿を削除', timeline_path(post), method: :delete, data: { confirm: '本当に削除しますか？' } %>
+  <%= link_to timeline_path(post), method: :delete, data: { confirm: '本当に削除しますか？' } do %>
+    <i class="fa fa-trash"></i>
+  <% end %>
   <p>コメント：<%= post.content %></p>
   <p>達成したタスク:</p>
   <ul>

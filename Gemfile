@@ -60,3 +60,4 @@ gem 'devise'
 gem "refile", require: "refile/rails", github: 'manfe/refile'
 gem "refile-mini_magick"
 gem "bulma-rails"
+gem 'font-awesome-sass', '~> 6.0'

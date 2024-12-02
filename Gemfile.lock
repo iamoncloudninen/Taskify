@@ -105,6 +105,8 @@ GEM
     erubi (1.13.0)
     ffi (1.17.0-arm64-darwin)
     ffi (1.17.0-x86_64-darwin)
+    font-awesome-sass (6.5.2)
+      sassc (~> 2.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
     google-protobuf (3.25.5-arm64-darwin)
@@ -339,6 +341,7 @@ DEPENDENCIES
   byebug
   capybara (>= 3.26)
   devise
+  font-awesome-sass (~> 6.0)
   jbuilder (~> 2.7)
   listen (~> 3.3)
   puma (~> 5.0)

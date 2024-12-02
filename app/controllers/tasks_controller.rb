@@ -44,6 +44,14 @@ class TasksController < ApplicationController
     redirect_to dashboard_show_path, notice: 'タスクを戻しました'
   end
 
+  def destroy
+    @task = Task.find(params[:id])
+    if @task.destroy
+      flash[:notice] = "タスクを削除しました。"
+      redirect_to dashboard_show_path
+    end
+  end
+
   private
   def task_params
     params.require(:task).permit(:content, :deadline, :priority, :image)

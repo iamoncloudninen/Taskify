@@ -1,5 +1,4 @@
 <h1>ダッシュボード</h1>
-
 <h2>達成されていないタスク一覧（本日以降が期限）</h2>
 <%= link_to "タスク作成", new_task_path %>
 <% if @upcoming_tasks.any? %>
@@ -10,7 +9,12 @@
           <span>優先</span>
         <% end %>
         <%= link_to task.content, task_path(task) %> (期限: <%= format_datetime(task.deadline) %>)
-        <%= link_to "編集", edit_task_path(task) %>
+        <%= link_to edit_task_path(task) do %>
+          <i class="fa fa-edit"></i>
+        <% end %>
+        <%= link_to task_path(task), method: :delete, data: { confirm: '本当に削除しますか？' } do %>
+          <i class="fa fa-trash"></i>
+        <% end %>
         <%= button_to "達成報告", complete_task_path(task), method: :patch, data: { confirm: 'このタスクを達成しますか？' } %>
       </li>
     <% end %>
@@ -25,7 +29,9 @@
     <% @outdated_tasks.each do |task| %>
       <li>
         <%= link_to task.content, task_path(task) %> (期限: <%= format_datetime(task.deadline) %>)
-        <%= link_to "編集", edit_task_path(task) %>
+        <%= link_to edit_task_path(task) do %>
+          <i class="fa fa-edit"></i>
+        <% end %>
         <%= button_to "達成報告", complete_task_path(task), method: :patch, data: { confirm: 'このタスクを達成しますか？' } %>
       </li>
     <% end %>
