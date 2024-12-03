@@ -20,13 +20,15 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  overscroll-behavior: none;
 }
 
 .Header {
   height: 60px;
   width: 100%;
   position: relative;
-  background-color: #def7ff; 
+  color: #FFFFFF;
+  background-color: #1A2A44; 
   position: fixed;
   top: 0;
   left: 0;
@@ -35,6 +37,14 @@
 
 body {
   padding-top: 60px;
+  background-color: #1A2A44; 
+  color: #333333;
+}
+
+main {
+  background-color: #F5F7FA;
+  padding: 30px 50px;
+
 }
 
 .header__logo {
@@ -88,9 +98,13 @@ body {
 }
 
 .nav__item a {
+  color: #FFFFFF;
   font-size: 15px;
-  color: navy;
   text-decoration: none;
+}
+
+.nav__item a:hover {
+  color: #3C599B;
 }
  
 .nav__toggle {
@@ -106,7 +120,9 @@ body {
 }
 
 .Footer {
-    position: relative;
-    background-color: #def7ff; 
-    height: 300px;
+  padding: 30px;
+  position: relative;
+  height: 200px;
+  color: #FFFFFF;
+  background-color: #1A2A44;   
 }
