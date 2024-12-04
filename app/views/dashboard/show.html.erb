@@ -8,7 +8,7 @@
         <% if task.priority == true %>
           <span>優先</span>
         <% end %>
-        <%= link_to task.content, task_path(task) %> (期限: <%= format_datetime(task.deadline) %>)
+        <%= task.content %> (期限: <%= format_datetime(task.deadline) %>)
         <%= link_to edit_task_path(task) do %>
           <i class="fa fa-edit"></i>
         <% end %>
@@ -28,7 +28,7 @@
   <ul>
     <% @outdated_tasks.each do |task| %>
       <li>
-        <%= link_to task.content, task_path(task) %> (期限: <%= format_datetime(task.deadline) %>)
+        <%= task.content %> (期限: <%= format_datetime(task.deadline) %>)
         <%= link_to edit_task_path(task) do %>
           <i class="fa fa-edit"></i>
         <% end %>

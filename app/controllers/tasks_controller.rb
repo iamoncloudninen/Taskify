@@ -1,12 +1,4 @@
 class TasksController < ApplicationController
-  def index
-    @tasks = Task.all
-  end
-
-  def show
-    @task = Task.find(params[:id])
-  end
-
   def new
     @task = Task.new
   end
@@ -35,13 +27,13 @@ class TasksController < ApplicationController
   def complete
     @task = Task.find(params[:id])
     @task.update(completed: true, completed_at: Time.zone.now)
-    redirect_to dashboard_show_path, notice: 'タスクを達成しました'
+    redirect_to dashboard_show_path, notice: 'タスクを達成しました。'
   end
 
   def incomplete
     @task = Task.find(params[:id])
     @task.update(completed: false, completed_at: nil)
-    redirect_to dashboard_show_path, notice: 'タスクを戻しました'
+    redirect_to dashboard_show_path, notice: 'タスクを未達成に戻しました。'
   end
 
   def destroy

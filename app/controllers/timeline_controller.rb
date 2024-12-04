@@ -16,7 +16,7 @@ class TimelineController < ApplicationController
     @timeline_post.user = current_user
 
     if @timeline_post.save
-      redirect_to timeline_index_path, notice: '投稿が成功しました！'
+      redirect_to timeline_index_path, notice: '投稿しました。'
     else
       render :new
     end
