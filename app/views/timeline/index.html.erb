@@ -9,12 +9,20 @@
         <i class="fa fa-trash"></i>
       <% end %>
     <% end %>
-    <p>コメント：<%= post.content %></p>
-    <p>達成したタスク:</p>
+    <p>達成したタスク :</p>
     <ul>
       <% post.tasks.each do |task| %>
         <li><%= task.content %></li>
       <% end %>
     </ul>
+    <p>コメント :<%= post.content %></p>
+    <% if post.images.attached? %>
+      <div>
+        <p>添付画像 :</p>
+        <% post.images.each do |image| %>
+          <%= image_tag url_for(image), alt: "添付画像" %>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 <% end %>

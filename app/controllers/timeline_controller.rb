@@ -33,6 +33,6 @@ class TimelineController < ApplicationController
   private
 
   def timeline_post_params
-    params.require(:timeline_post).permit(:content, task_ids: [])
+    params.require(:timeline_post).permit(:content, task_ids: [], images: [])
   end
 end
