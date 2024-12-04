@@ -3,7 +3,7 @@
 <% @timeline_posts.each do |post| %>
   <div>
     <%= attachment_image_tag post.user, :profile_image, fallback: "no_image.png", size: "50x50" %>
-    <%= post.user.username %>
+    <%= link_to post.user.username, user_path(post.user) %>
     <% if post.user.id == current_user.id %>
       <%= link_to timeline_path(post), method: :delete, data: { confirm: '本当に削除しますか？' } do %>
         <i class="fa fa-trash"></i>
