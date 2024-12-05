@@ -26,5 +26,13 @@
     <% post.tasks.each do |task| %>
       <li><%= task.content %></li>
     <% end %>
+    <% if post.images.attached? %>
+      <div>
+        <p>添付画像 :</p>
+        <% post.images.each do |image| %>
+          <%= image_tag url_for(image), alt: "添付画像" %>
+        <% end %>
+      </div>
+    <% end %>
   </ul>
 <% end %>
