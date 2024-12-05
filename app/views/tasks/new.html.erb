@@ -1,15 +1,28 @@
 <h1>タスク作成</h1>
 
 <%= form_for @task do |f| %>
+  <div>
     <%= f.label :内容 %>
     <%= f.text_field :content %>
-    
+  </div>
+
+  <div>
     <%= f.label :期限 %>
     <%= f.datetime_select :deadline %>
-    
+    <div>
+      <%= label_tag :today_only, "本日中" %>
+      <%= check_box_tag :today_only, '1', false %>
+    </div>
+  </div>
+
+  <div>
     <%= f.label :優先 %>
     <%= f.check_box :priority %>
-    
+  </div>
+
+  <div>
     <%= f.submit "タスクを作成する" %>
+  </div>
 <% end %>
+
 <%= link_to "ダッシュボードに戻る", dashboard_show_path %>

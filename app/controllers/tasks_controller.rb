@@ -7,6 +7,9 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
     @task.user_id = current_user.id
     @task.completed = false
+    if params[:today_only] == "1"
+      @task.deadline = Time.zone.now.end_of_day
+    end
     if @task.save
       flash[:notice] = "タスクを作成しました。"
       redirect_to dashboard_show_path
