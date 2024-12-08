@@ -1,77 +1,139 @@
 <div id="pomodoro-timer">
   <h1>ポモドーロタイマー</h1>
   <p id="timer">25:00</p>
-  <button id="startButton" onclick="startTimer()">開始</button>
-  <button id="stopButton" onclick="stopTimer()">ストップ</button>
-  <button id="resetButton" onclick="resetTimer()">リセット</button>
+  <div class="buttons">
+    <button id="startButton" onclick="startTimer()">開始</button>
+    <button id="stopButton" onclick="stopTimer()">ストップ</button>
+    <button id="resetButton" onclick="resetTimer()">リセット</button>
+  </div>
 </div>
-
 <script>
   let timer;
   let isRunning = false;
   let totalTime = 25 * 60;
+  let currentTime = totalTime;
   let isBreakTime = false;
+  let startTime;
 
-  let startButton, stopButton, resetButton;
-  
-  document.addEventListener('DOMContentLoaded', function () {
-    startButton = document.getElementById('startButton');
-    stopButton = document.getElementById('stopButton');
-    resetButton = document.getElementById('resetButton');
-
-    startButton.disabled = false;
-    stopButton.disabled = true;
-    resetButton.disabled = true;
+  document.addEventListener("DOMContentLoaded", () => {
+    loadTimerState();
+    updateTimerDisplay();
+    updateButtonState();
+    if (isRunning) {
+      resumeTimer();
+    }
   });
 
   function startTimer() {
     if (!isRunning) {
       isRunning = true;
-      timer = setInterval(countdown, 1000);
+      startTime = Date.now() - (totalTime - currentTime) * 1000;
+      timer = setInterval(updateTimer, 1000);
+      saveTimerState();
     }
-    startButton.disabled = true;
-    stopButton.disabled = false;
-    resetButton.disabled = false;
-  }
-
-  function countdown() {
-    if (totalTime > 0) {
-      totalTime--;
-      const minutes = Math.floor(totalTime / 60);
-      const seconds = totalTime % 60;
-      document.getElementById('timer').innerText =
-        minutes + ":" + (seconds < 10 ? '0' + seconds : seconds);
-    } else {
-      clearInterval(timer);
-      isRunning = false;
-      if (isBreakTime) {
-        alert('休憩が終了しました。作業を再開しましょう！');
-        totalTime = 25 * 60;
-        isBreakTime = false;
-      } else {
-        alert('ポモドーロが終了しました。休憩をとりましょう！');
-        totalTime = 5 * 60;
-        isBreakTime = true;
-      }
-      startTimer();
-    }
+    updateButtonState();
   }
 
   function stopTimer() {
-    clearInterval(timer);
-    isRunning = false;
-    startButton.disabled = false;
-    stopButton.disabled = true;
-    resetButton.disabled = false;
+    if (isRunning) {
+      clearInterval(timer);
+      isRunning = false;
+      saveTimerState();
+    }
+    updateButtonState();
   }
 
   function resetTimer() {
-    clearInterval(timer);
-    isRunning = false;
-    totalTime = 25 * 60;
-    document.getElementById('timer').innerText = "25:00";
-    startButton.disabled = false;
-    stopButton.disabled = true;
-    resetButton.disabled = true;
+    stopTimer();
+    currentTime = totalTime = isBreakTime ? 5 * 60 : 25 * 60;
+    saveTimerState();
+    updateTimerDisplay();
+    updateButtonState();
+  }
+
+  function updateTimer() {
+    const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
+    currentTime = Math.max(totalTime - elapsedTime, 0);
+    if (currentTime === 0) {
+      clearInterval(timer);
+      isRunning = false;
+      handleTimerEnd();
+    }
+    updateTimerDisplay();
+    saveTimerState();
+  }
+
+  function resumeTimer() {
+    const savedState = JSON.parse(localStorage.getItem("pomodoroTimerState"));
+    const elapsedTime = savedState.startTime ? Math.floor((Date.now() - savedState.startTime) / 1000) : 0;
+    currentTime = Math.max(savedState.currentTime - elapsedTime, 0);
+    totalTime = savedState.totalTime;
+    isRunning = savedState.isRunning && currentTime > 0;
+    isBreakTime = savedState.isBreakTime;
+    if (isRunning) {
+      startTime = Date.now() - elapsedTime * 1000;
+      timer = setInterval(updateTimer, 1000);
+    }
+    updateTimerDisplay();
+  }
+
+  function handleTimerEnd() {
+    isBreakTime = !isBreakTime;
+    totalTime = isBreakTime ? 5 * 60 : 25 * 60;
+    currentTime = totalTime;
+    alert(isBreakTime ? "ポモドーロが終了しました！休憩をとりましょう！" : "休憩が終了しました！作業を再開しましょう！");
+    startTimer();
+  }
+
+  function updateTimerDisplay() {
+    const minutes = Math.floor(currentTime / 60);
+    const seconds = currentTime % 60;
+    document.getElementById("timer").innerText = `${minutes}:${seconds.toString().padStart(2, "0")}`;
+  }
+
+  function updateButtonState() {
+    const startButton = document.getElementById("startButton");
+    const stopButton = document.getElementById("stopButton");
+    const resetButton = document.getElementById("resetButton");
+
+    if (isRunning) {
+      startButton.disabled = true;
+      stopButton.disabled = false;
+      resetButton.disabled = false;
+    } else {
+      if (currentTime === totalTime) {
+        startButton.disabled = false;
+        stopButton.disabled = true;
+        resetButton.disabled = true;
+      } else {
+        startButton.disabled = false;
+        stopButton.disabled = true;
+        resetButton.disabled = false;
+      }
+    }
+  }
+
+  function saveTimerState() {
+    localStorage.setItem("pomodoroTimerState", JSON.stringify({
+      totalTime,
+      currentTime,
+      isRunning,
+      isBreakTime,
+      startTime: isRunning ? Date.now() - (totalTime - currentTime) * 1000 : null
+    }));
+  }
+
+  function loadTimerState() {
+    const savedState = JSON.parse(localStorage.getItem("pomodoroTimerState"));
+    if (savedState) {
+      const elapsedTime = savedState.startTime ? Math.floor((Date.now() - savedState.startTime) / 1000) : 0;
+      totalTime = savedState.totalTime;
+      currentTime = Math.max(savedState.currentTime - elapsedTime, 0);
+      isRunning = savedState.isRunning && currentTime > 0;
+      isBreakTime = savedState.isBreakTime;
+      if (isRunning) {
+        startTime = Date.now() - elapsedTime * 1000;
+      }
+    }
   }
 </script>
