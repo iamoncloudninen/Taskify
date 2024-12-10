@@ -25,5 +25,10 @@
       </div>
     <% end %>
     <p>投稿日時 :<%= post.created_at.strftime("%Y/%m/%d %H:%M")%></p>
+    <div>
+      <%= button_to '頑張ったね', timeline_post_reactions_path(post), method: :post, class: "btn btn-primary" unless post.reactions.exists?(user: current_user) %>
+      <%= button_to '頑張ったね取消', timeline_post_reaction_path(post, post.reactions.find_by(user: current_user)), method: :delete, class: "btn btn-secondary" if post.reactions.exists?(user: current_user) %>
+      <span>頑張ったね数: <%= post.reactions.count %></span>
+    </div>
   </div>
 <% end %>

@@ -5,5 +5,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   attachment :profile_image
   has_many :tasks, dependent: :destroy
-  has_many :timeline_posts, dependent: :destroy
+  has_many :timeline_post, dependent: :destroy
+  has_many :reactions, dependent: :destroy
 end

@@ -1,8 +1,13 @@
 Rails.application.routes.draw do
+  get 'reactions/create'
+  get 'reactions/destroy'
   get 'pomodoro/index'
   get 'dashboard/show'
   get 'timers', to: 'timers#index'
   resources :timeline
+  resources :timeline_posts do
+    resources :reactions, only: [:create, :destroy]
+  end
   resources :tasks do
     patch :complete, on: :member
     patch :incomplete, on: :member
