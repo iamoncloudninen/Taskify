@@ -1,14 +1,28 @@
 <h1>タスク編集</h1>
-<%= form_for @task do |f| %>
-    <%= f.label :内容 %>
-    <%= f.text_field :content %>
-    
-    <%= f.label :期限 %>
-    <%= f.datetime_select :deadline %>
-    
-    <%= f.label :優先 %>
-    <%= f.check_box :priority %>
-    
-    <%= f.submit "タスクを更新する" %>
-<% end %>
-<%= link_to "ダッシュボードに戻る", dashboard_show_path %>
+<div class="task-form">
+  <%= form_for @task do |f| %>
+    <div class="form-group">
+      <%= f.label :content, "タスク内容", class: "form-label" %>
+      <%= f.text_field :content, class: "form-input" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :deadline, "期限", class: "form-label" %>
+      <%= f.datetime_local_field :deadline, class: "form-input", id: "task-deadline" %>
+      <div class="form-checkbox">
+        <%= check_box_tag :today_only, '1', false, id: "today-only" %>
+        <%= label_tag :today_only, "本日中", class: "form-label" %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :priority, "優先", class: "form-label" %>
+      <%= f.check_box :priority, class: "form-checkbox" %>
+    </div>
+
+    <div class="form-actions">
+      <%= link_to "ダッシュボードに戻る", dashboard_show_path, class: "ta-btn ta-btn-secondary" %>
+      <%= f.submit "タスクを更新する", class: "ta-btn ta-btn-primary" %>
+    </div>
+  <% end %>
+</div>

@@ -90,7 +90,7 @@
     margin-right: 2px;
   }
   
-  .btn {
+  .da-btn {
     padding: 5px 10px;
     text-decoration: none;
     border: none;
@@ -98,25 +98,26 @@
     border-radius: 3px;
   }
   
-  .btn-primary {
+  .da-btn-primary {
     background-color: #007bff;
     color: #f9f9f9;
+    margin-left: 10px;
   }
   
-  .btn-action {
+  .da-btn-action {
     border : 1px solid grey;
     background-color: #f9f9f9;
     color: #333333;
   }
   
-  .btn-complete {
+  .da-btn-complete {
     border : 1px solid grey;
     border-radius: 50px;
     background-color: #f9f9f9;
     margin-right: 5px;
   }
   
-  .btn:hover {
+  .da-btn:hover {
     opacity: 0.8;
   }
   

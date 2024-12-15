@@ -1,7 +1,7 @@
-<%= link_to "戻る", timeline_index_path %>
 <% if @user.id == current_user.id %>
   <h1>マイページ</h1>
 <% else %>
+  <%= link_to "戻る", timeline_index_path %>
   <h1>プロフィール</h1>
 <% end %>
 <%= attachment_image_tag @user, :profile_image, fallback: "no_image.png" %>

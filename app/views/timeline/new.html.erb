@@ -1,21 +1,29 @@
 <h1>タスク達成投稿の作成</h1>
-
-<%= form_with model: @timeline_post, url: timeline_index_path do |f| %>
-  <div>
-    <%= f.label :task_ids, "投稿するタスクを選択" %>
-    <%= f.collection_check_boxes :task_ids, @tasks, :id, :content %>
-  </div>
-  <div>
-    <%= f.label :content, "コメント" %>
-    <%= f.text_area :content, rows: 3 %>
-  </div>
-  <div>
-    <%= f.label :images, "画像を選択" %>
-    <%= f.file_field :images, multiple: true %>
-  </div>
-  <div>
-    <%= f.submit "投稿する" %>
-  </div>
-<% end %>
-<%= link_to '戻る', dashboard_show_path %>
+<div class="post-form">
+  <%= form_with model: @timeline_post, url: timeline_index_path do |f| %>
+    <div class="post-group">
+      <%= f.label :task_ids, "投稿するタスクを選択", class: "form-label" %>
+      <div class="task-checkboxes">
+        <%= f.collection_check_boxes :task_ids, @tasks, :id, :content do |b| %>
+          <div class="task-checkbox-item">
+            <%= b.check_box %>
+            <%= b.label %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="post-group">
+      <%= f.label :content, "コメント", class: "form-label" %>
+      <%= f.text_area :content, rows: 3, class: "form-input" %>
+    </div>
+    <div class="post-group">
+      <%= f.label :images, "達成画像を追加", class: "form-label" %>
+      <%= f.file_field :images, multiple: true, class: "form-input" %>
+    </div>
+    <div class="post-actions">
+      <%= link_to "ダッシュボードに戻る", dashboard_show_path, class: "po-btn po-btn-secondary" %>
+      <%= f.submit "投稿する", class: "po-btn po-btn-primary" %>
+    </div>
+  <% end %>
+</div>
 
