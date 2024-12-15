@@ -5,7 +5,7 @@ class ReactionsController < ApplicationController
     @timeline_posts = TimelinePost.includes(reactions: :user).all
     @post.reactions.create(user: current_user)
     flash[:notice] = "頑張ったね！"
-    redirect_to timeline_index_path
+    redirect_to request.referer
   end
 
   private
