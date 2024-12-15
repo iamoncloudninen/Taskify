@@ -1,56 +1,103 @@
-<h1>ダッシュボード</h1>
-<h2>達成されていないタスク一覧（本日以降が期限）</h2>
-<%= link_to "タスク作成", new_task_path %>
-<% if @upcoming_tasks.any? %>
-  <ul>
-    <% @upcoming_tasks.each do |task| %>
-      <li>
-        <% if task.priority == true %>
-          <span>優先</span>
-        <% end %>
-        <%= task.content %> (期限: <%= format_datetime(task.deadline) %>)
-        <%= link_to edit_task_path(task) do %>
-          <i class="fa fa-edit"></i>
-        <% end %>
-        <%= link_to task_path(task), method: :delete, data: { confirm: '本当に削除しますか？' } do %>
-          <i class="fa fa-trash"></i>
-        <% end %>
-        <%= button_to "達成報告", complete_task_path(task), method: :patch, data: { confirm: 'このタスクを達成しますか？' } %>
-      </li>
-    <% end %>
-  </ul>
-<% else %>
-  <p>達成されていないタスクはありません。</p>
-<% end %>
+<div class="dashboard">
+  <h1>ダッシュボード</h1>
+  <div class="task-summary">
+    <div class="task-card">
+      <p>未達成タスク</p>
+      <span class="task-count"><%= @upcoming_tasks.count %></span>
+    </div>
+    <div class="task-card">
+      <p>期限切れタスク</p>
+      <span class="task-count"><%= @outdated_tasks.count %></span>
+    </div>
+    <div class="task-card">
+      <p>本日達成のタスク</p>
+      <span class="task-count"><%= @completed_tasks_today.count %></span>
+    </div>
+  </div>
 
-<h2>期限を過ぎたタスク</h2>
-<% if @outdated_tasks.any? %>
-  <ul>
-    <% @outdated_tasks.each do |task| %>
-      <li>
-        <%= task.content %> (期限: <%= format_datetime(task.deadline) %>)
-        <%= link_to edit_task_path(task) do %>
-          <i class="fa fa-edit"></i>
+  <section class="tasks upcoming">
+    <div class="tasks-header">
+      <h2>未達成タスク</h2>
+      <%= link_to new_task_path, class: "btn btn-primary" do %>
+        <i class="fa fa-plus"></i> タスク作成
+      <% end %>
+    </div>
+    <% if @upcoming_tasks.any? %>
+      <ul>
+        <% @upcoming_tasks.each do |task| %>
+          <li class="task-li">
+            <div class="task-content">
+              <%= button_to "  ", complete_task_path(task), method: :patch, data: { confirm: 'このタスクを達成しましたか？' }, class: "btn btn-complete" %>
+              <% if task.priority %>
+                <span class="priority">優先</span>
+              <% end %>
+              <span><%= task.content %> | 期限: <%= simple_datetime(task.deadline) %></span>
+            </div>
+            <div class="task-buttons">
+              <%= link_to edit_task_path(task), class: "btn btn-action" do %>
+                <i class="fa fa-edit"></i>
+              <% end %>
+              <%= link_to task_path(task), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-action" do %>
+                <i class="fa fa-trash"></i>
+              <% end %>
+            </div>
+          </li>
         <% end %>
-        <%= button_to "達成報告", complete_task_path(task), method: :patch, data: { confirm: 'このタスクを達成しますか？' } %>
-      </li>
+      </ul>
+    <% else %>
+      <p>達成されていないタスクはありません。</p>
     <% end %>
-  </ul>
-<% else %>
-  <p>期限を過ぎたタスクはありません</p>
-<% end %>
+  </section>
 
-<h2>本日達成したタスク一覧</h2>
-<% if @completed_tasks_today.any? %>
-  <%= link_to "投稿を作成する", new_timeline_path %>
-  <ul>
-    <% @completed_tasks_today.each do |task| %>
-      <li>
-        <%= task.content %>
-        <%= button_to "未達成に戻す", incomplete_task_path(task), method: :patch, data: { confirm: 'このタスクを未達成に戻しますか？' } %>
-      </li>
+
+  <section class="tasks outdated">
+    <h2>期限切れタスク</h2>
+    <% if @outdated_tasks.any? %>
+      <ul>
+        <% @outdated_tasks.each do |task| %>
+          <li class="task-li">
+            <div class="task-content">
+              <%= button_to "  ", complete_task_path(task), method: :patch, data: { confirm: 'このタスクを達成しましたか？' }, class: "btn btn-complete" %>
+              <span><%= task.content %> | 期限: <%= simple_datetime(task.deadline) %></span>
+            </div>
+            <div class="task-buttons">
+              <%= link_to edit_task_path(task), class: "btn btn-action" do %>
+                <i class="fa fa-edit"></i>
+              <% end %>
+              <%= link_to task_path(task), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-action" do %>
+                <i class="fa fa-trash"></i>
+              <% end %>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p>期限を過ぎたタスクはありません。</p>
     <% end %>
-  </ul>
-<% else %>
-  <p>本日達成したタスクはありません。</p>
-<% end %>
+  </section>
+
+  <section class="tasks completed">
+    <div class="tasks-header">
+      <h2>本日達成のタスク</h2>
+      <% if @completed_tasks_today.any? %>
+        <%= link_to new_timeline_path, class: "btn btn-primary" do %>
+          <i class="fa fa-pencil-alt"></i> 投稿作成
+        <% end %>
+      <% end %>
+    </div>
+    <% if @completed_tasks_today.any? %>
+      <ul>
+        <% @completed_tasks_today.each do |task| %>
+          <li class="task-li">
+            <div class="task-content">
+              <%= button_to "✔️", incomplete_task_path(task), method: :patch, data: { confirm: 'このタスクを未達成に戻しますか？' }, class: "btn btn-complete" %>
+              <span><%= task.content %></span>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p>本日達成したタスクはありません。</p>
+    <% end %>
+  </section>
+</div>
