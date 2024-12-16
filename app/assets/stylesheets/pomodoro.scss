@@ -1,3 +1,46 @@
-// Place all the styles related to the pomodoro controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: https://sass-lang.com/
+#pomodoro-timer {
+  width: 100%;
+  margin-top: 20px;
+  padding: 20px;
+  text-align: center;
+  background: #dde4eb;
+  border-radius: 12px;
+}
+
+#timer {
+  font-size: 120px;
+  font-weight: 700;
+  letter-spacing: 8px;
+  color: #2a3d55;
+  margin: 20px 0;
+  padding: 30px;
+  display: inline-block;
+  width: 100%;
+}  
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.buttons button {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #ffffff;
+  background: #6baedc;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.buttons button:hover {
+  background: #5a9acb;
+}
+
+.buttons button:disabled {
+  background: #b3b3b3;
+  cursor: not-allowed;
+}

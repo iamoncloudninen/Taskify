@@ -35,3 +35,16 @@ ja:
       - 10
       - 11
       - 12
+  devise:
+    sessions:
+      signed_in: "ログインしました"
+      signed_out: "ログアウトしました"
+      already_signed_in: "すでにログインしています"
+    registrations:
+      signed_up: "新規登録が完了しました"
+      updated: "アカウント情報を更新しました"
+      destroyed: "アカウントを削除しました"
+    passwords:
+      send_instructions: "パスワードリセットの案内をメールで送信しました"
+      updated: "パスワードが変更されました"
+
