@@ -4,9 +4,11 @@
       <%= link_to image_tag("headerlogo.PNG", alt: "Taskify Logo", class: "header__logo"), root_path %>
     </div>
     <nav class="nav">
-      <button class="nav__toggle" aria-expanded="false" type="button">
-        menu
-      </button>
+      <div class="nav__toggle" id="navToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
       <ul class="nav__wrapper">
         <% if user_signed_in? %>
           <li class="nav__item">
