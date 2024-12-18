@@ -10,6 +10,9 @@
         <span></span>
       </div>
       <ul class="nav__wrapper">
+      <div class="close__button" id="closeButton">
+        <span>×</span>
+      </div>
         <% if user_signed_in? %>
           <li class="nav__item">
             <%= link_to dashboard_show_path do %>
@@ -52,3 +55,19 @@
     </nav>
   </div>
 </div>
+<script>
+  document.addEventListener('turbolinks:load', () => {
+    const navToggle = document.getElementById('navToggle');
+    const navWrapper = document.querySelector('.nav__wrapper');
+    const closeButton = document.getElementById('closeButton');
+  
+    if (navToggle && navWrapper && closeButton) {
+      navToggle.addEventListener('click', () => {
+        navWrapper.classList.add('active');
+      });
+      closeButton.addEventListener('click', () => {
+        navWrapper.classList.remove('active');
+      });
+    }
+  });
+</script>

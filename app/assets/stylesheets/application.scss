@@ -67,28 +67,29 @@ main {
 
 .nav__wrapper {
   position: absolute;
-  top: 100%;
-  right: 0;
-  left: 0;
-  z-index: -1;
-  background-color: #d9f0f7;
+  top: 0;
+  right: -160px;
+  width: 160px;
+  height: 100vh;
+  z-index: 1000;
+  background-color: #1A2A44;
   visibility: hidden;
   opacity: 0;
-  transform: translateY(-100%);
+  transform: translateX(0);
   transition: transform 0.3s ease-out, opacity 0.3s ease-out;
 }
 
 .nav__wrapper.active {
   visibility: visible;
-  opacity: 1;
-  transform: translateY(0);
+  opacity: 0.9;
+  transform: translateX(-160px);
 }
 
 .nav__item {
   display: block;
   text-align: center;
   padding: 10px 0;
-  padding-left: 20px;
+  border-bottom: 1px solid #ccc;
 }
 
 .nav__item a {
@@ -123,6 +124,13 @@ main {
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
+.close__button {
+  text-align: right;
+  font-size: 48px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
 .icon-large {
   font-size: 16px;
 }
@@ -136,7 +144,7 @@ main {
   }
 
   main {
-    padding: 30px 100px;
+    padding: 80px 100px;
   }
 
   .Footer {
@@ -167,7 +175,7 @@ main {
   }
 
   main {
-    padding: 30px 280px;
+    padding: 80px 280px;
   }
 
   .Footer {
@@ -176,10 +184,14 @@ main {
 
   .nav__wrapper {
     display: flex;
-    position: relative;
+    justify-content: flex-end;
+    align-items: center;
+    position: relative; 
     top: auto;
     right: auto;
     left: auto;
+    width: auto;
+    height: auto;
     z-index: auto;
     background-color: transparent;
     visibility: visible;
@@ -188,6 +200,22 @@ main {
   }
 
   .nav__toggle {
+    display: none;
+  }
+
+  .nav__item {
+    padding: 10px 0;
+    padding-left: 20px;
+    border-bottom: none;
+  }
+
+  .nav__item a {
+    font-size: 14px;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .close__button {
     display: none;
   }
 }
