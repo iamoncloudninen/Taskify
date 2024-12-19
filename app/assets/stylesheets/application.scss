@@ -23,6 +23,52 @@
   overscroll-behavior: none;
 }
 
+.notice {
+  background-color: #e8f5e9; /* 柔らかい緑色 */
+  color: #2e7d32;           /* 深い緑色 */
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border: 1px solid #c8e6c9;
+}
+
+.alert {
+  background-color: #ffebee; /* 柔らかい赤色 */
+  color: #c62828;           /* 深い赤色 */
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ffcdd2;
+}
+
+.notice, .alert {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* アイコンとテキストの間隔 */
+}
+
+.notice::before, .alert::before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+.notice::before {
+  background-color: #2e7d32;
+}
+
+.alert::before {
+  background-color: #c62828;
+}
+
 body {
   color: #333333;
   background-color: #1A2A44;
