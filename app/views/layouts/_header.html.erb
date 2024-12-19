@@ -41,6 +41,11 @@
           </li>
         <% else %>
           <li class="nav__item">
+            <%= link_to users_guest_sign_in_path, method: :post do %>
+              <i class="fa fa-user-clock icon-large"></i><br> ゲストログイン
+            <% end %>
+          </li>
+          <li class="nav__item">
             <%= link_to new_user_session_path do %>
               <i class="fa fa-sign-in-alt icon-large"></i><br>ログイン
             <% end %>

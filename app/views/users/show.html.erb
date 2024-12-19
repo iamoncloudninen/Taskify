@@ -1,4 +1,7 @@
-<% if @user.id == current_user.id %>
+<% if @user == User.guest_user %>
+  <h1 class="page-title">ゲストユーザーのページ</h1>
+  <p>ゲストユーザーとしてログイン中です。</p>
+<% elsif @user.id == current_user.id %>
   <h1 class="page-title">マイページ</h1>
 <% else %>
   <%= link_to "←戻る", timeline_index_path, class: "back-link" %>
@@ -8,17 +11,21 @@
   <div class="profile-header">
     <%= attachment_image_tag @user, :profile_image, fallback: "no_image.png", class: "profile-image" %>
     <div class="profile-info">
-      <h2 class="username"><%= @user.username %></h2>
-      <% if @user.id == current_user.id %>
-        <p class="email"><%= @user.email %></p>
-        <div class="profile-actions">
-          <%= link_to edit_user_path(@user), class: "u-btn u-btn-edit" do %>
-            <i class="fa fa-pencil-alt"></i> 編集
-          <% end %>
-          <%= link_to user_path(@user), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "u-btn u-btn-delete" do %>
-            <i class="fa fa-trash-alt"></i> 削除
-          <% end %>
-        </div>
+      <% if @user.username == "ゲストユーザー" %>
+        <h2 class="username">ゲストユーザー</h2>
+      <% else %>
+        <h2 class="username"><%= @user.username %></h2>
+        <% if @user.id == current_user.id %>
+          <p class="email"><%= @user.email %></p>
+          <div class="profile-actions">
+            <%= link_to edit_user_path(@user), class: "u-btn u-btn-edit" do %>
+              <i class="fa fa-pencil-alt"></i> 編集
+            <% end %>
+            <%= link_to user_path(@user), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "u-btn u-btn-delete" do %>
+              <i class="fa fa-trash-alt"></i> 削除
+            <% end %>
+          </div>
+        <% end %>
       <% end %>
     </div>
   </div>

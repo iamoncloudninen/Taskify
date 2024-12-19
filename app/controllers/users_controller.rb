@@ -1,8 +1,12 @@
 class UsersController < ApplicationController
   def show
-    @user = User.find(params[:id])
+    if params[:id] == "guest_sign_in"
+      @user = User.guest_user
+    else
+      @user = User.find(params[:id])
+    end
     @timeline_posts = @user.timeline_post.order(created_at: :desc)
-  end
+  end  
 
   def edit
     @user = User.find(params[:id])
