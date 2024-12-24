@@ -23,9 +23,15 @@
   overscroll-behavior: none;
 }
 
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
+
 .notice {
-  background-color: #e8f5e9; /* 柔らかい緑色 */
-  color: #2e7d32;           /* 深い緑色 */
+  background-color: #e8f5e9;
+  color: #2e7d32;
   padding: 10px 15px;
   border-radius: 5px;
   font-size: 14px;
@@ -36,8 +42,8 @@
 }
 
 .alert {
-  background-color: #ffebee; /* 柔らかい赤色 */
-  color: #c62828;           /* 深い赤色 */
+  background-color: #ffebee;
+  color: #c62828;
   padding: 10px 15px;
   border-radius: 5px;
   font-size: 14px;
@@ -50,7 +56,7 @@
 .notice, .alert {
   display: flex;
   align-items: center;
-  gap: 10px; /* アイコンとテキストの間隔 */
+  gap: 10px;
 }
 
 .notice::before, .alert::before {

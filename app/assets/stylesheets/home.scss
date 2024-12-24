@@ -1,3 +1,116 @@
-// Place all the styles related to the home controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: https://sass-lang.com/
+  .hero {
+    background-color: #F5F7F3;
+    color: #333333;
+    text-align: center;
+    padding: 200px 20px;
+    width: 100%;
+    background-image: url('/assets/background_image.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  
+  .hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .home-h1 {
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.7); /* 白い影 */
+    font-size: 60px;
+    margin-bottom: 20px;
+  }
+
+  .home-h1:first-letter {
+    font-size: 72px;
+    color: #3498DB;
+  }
+  
+  .home-p {
+    font-size: 24px;
+    margin-bottom: 30px;
+  }
+  
+  .cta-button {
+    background-color: #3498DB;
+    color: #f9f9f9;
+    padding: 15px 30px;
+    margin: 10px 10px;
+    font-size: 24px;
+    text-decoration: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .cta-button:hover {
+    background-color: #1f5f8a;
+  }
+  
+  .about {
+    padding: 50px 20px;
+    background-color: #fff;
+    text-align: center;
+  }
+  
+  .features {
+    margin-top: 30px;
+  }
+  
+  .feature-item {
+    width: 100%;
+    background-color: #f0f4f8;
+    margin: 50px 0;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .feature-item h3 {
+    font-size: 32px;
+    margin-bottom: 10px;
+  }
+
+  .feature-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+
+  .how-to-use {
+    padding: 150px 20px;
+    background-color: #eef7fc;
+    text-align: center;
+  }
+
+  .cta {
+    padding: 150px 20px;
+    background: linear-gradient(to right, #00aaff, #003366); /* 明るいブルーから濃いブルーへのグラデーション */
+    color: white;
+    text-align: center;
+  }
+  
+  .cta h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+  }
+  
+  @media (max-width: 1199px) {
+    .home-h1 {
+      font-size: 48px;
+    }
+  
+    .home-p {
+      font-size: 20px;
+    }
+  
+    .cta-button {
+      font-size: 20px;
+      padding: 12px 24px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+    }
+  }
