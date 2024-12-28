@@ -1,4 +1,5 @@
 class Task < ApplicationRecord
   belongs_to :user
   has_and_belongs_to_many :timeline_posts
+  validates :content, presence: true
 end

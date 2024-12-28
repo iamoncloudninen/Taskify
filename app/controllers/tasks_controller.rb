@@ -11,8 +11,17 @@ class TasksController < ApplicationController
       @task.deadline = Time.zone.now.end_of_day
     end
     if @task.save
-      flash[:notice] = "タスクを作成しました。"
+      begin
+        ai_message = generate_ai_message("created", @task)
+      rescue StandardError => e
+        ai_message = "AIメッセージの生成に失敗しました: #{e.message}"
+      end
+      ai_message = generate_ai_message("created", @task)
+      flash[:notice] = "タスクを作成しました！#{ai_message}"
       redirect_to dashboard_show_path
+    else
+      flash[:alert] = "タスクの作成に失敗しました。"
+      render :new
     end
   end
 
@@ -29,8 +38,16 @@ class TasksController < ApplicationController
 
   def complete
     @task = Task.find(params[:id])
-    @task.update(completed: true, completed_at: Time.zone.now)
-    redirect_to dashboard_show_path, notice: 'タスクを達成しました。'
+    if @task.update(completed: true, completed_at: Time.zone.now)
+      begin
+        ai_message = generate_ai_message("complete", @task)
+      rescue StandardError => e
+        ai_message = "AIメッセージの生成に失敗しました: #{e.message}"
+      end
+      redirect_to dashboard_show_path, notice: "タスクを達成しました！#{ai_message}"
+    else
+      redirect_to dashboard_show_path, alert: "タスクの達成に失敗しました。"
+    end
   end
 
   def incomplete
@@ -50,5 +67,26 @@ class TasksController < ApplicationController
   private
   def task_params
     params.require(:task).permit(:content, :deadline, :priority, :image)
+  end
+
+  def generate_ai_message(event, task)
+    client = OpenAI::Client.new(access_token: ENV["OPENAI_API_KEY"])
+
+    prompt = case event
+             when "created"
+               "新しいタスク「#{task.content}」が作成されました。ユーザーを励まして、このタスクを開始するモチベーションをシンプルなメッセージで提供してください。"
+             when "complete"
+               "タスク「#{task.content}」が完了しました！達成感を感じられるようなシンプルなメッセージを送り、次のタスクへのモチベーションを提供してください。"
+             end
+    response = client.chat(
+      parameters: {
+        model: "gpt-3.5-turbo",
+        messages: [
+          { role: "system", content: "あなたは親切でポジティブなタスクコーチです。" },
+          { role: "user", content: prompt }
+        ]
+      }
+    )
+    response.dig("choices", 0, "message", "content") || "AIメッセージ生成に失敗しました。"
   end
 end
