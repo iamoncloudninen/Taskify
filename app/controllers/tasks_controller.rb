@@ -32,8 +32,13 @@ class TasksController < ApplicationController
   def update
     @task = Task.find(params[:id])
     @task.update(task_params)
-    flash[:notice] = "タスクを更新しました。"
-    redirect_to dashboard_show_path(@task)
+    if @task.save
+      flash[:notice] = "タスクを更新しました。"
+      redirect_to dashboard_show_path(@task)
+    else
+      flash[:alert] = "タスクの更新に失敗しました。"
+      render :edit
+    end
   end
 
   def complete

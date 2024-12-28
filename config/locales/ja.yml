@@ -2,22 +2,42 @@ ja:
   activerecord:
     models:
       task: タスク
+      timeline_post: タイムライン投稿
     attributes:
       task:
         user_id: ユーザーID
-        content: 内容
+        content: タスク内容
         deadline: 期限
-        priority: 優先
+        priority: 優先度
         completed: 完了
-        image_id: 画像ID
         completed_at: 完了日時
+      timeline_post:
+        content: コメント
+        task_ids: タスク
+        images: 画像
+    errors:
+      messages:
+        blank: "を入力してください"
+        too_long: "は%{count}文字以内で入力してください"
+        invalid: "は不正な値です"
+        inclusion: "は有効な値ではありません"
+        past_date: "は過去の日付を設定できません"
+      models:
+        timeline_post:
+          attributes:
+            task_ids:
+              blank: "少なくとも1つのタスクを選択してください。"
+  helpers:
+    submit:
+      create: "%{model}を作成する"
+      update: "%{model}を更新する"
   time:
     formats:
       default: "%Y年%m月%d日 %H:%M"
   date:
     formats:
       default: "%Y年%m月%d日"
-    order: 
+    order:
       - :year
       - :month
       - :day
@@ -47,4 +67,3 @@ ja:
     passwords:
       send_instructions: "パスワードリセットの案内をメールで送信しました"
       updated: "パスワードが変更されました"
-

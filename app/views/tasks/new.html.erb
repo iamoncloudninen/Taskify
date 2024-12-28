@@ -1,6 +1,16 @@
 <h1>タスク作成</h1>
 <div class="task-form">
   <%= form_for @task do |f| %>
+    <% if @task.errors.any? %>
+      <div id="error_explanation">
+        <h2>タスク作成に失敗しました</h2>
+        <ul>
+          <% @task.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
     <div class="form-group">
       <%= f.label :content, "タスク内容", class: "form-label" %>
       <%= f.text_field :content, class: "form-input" %>

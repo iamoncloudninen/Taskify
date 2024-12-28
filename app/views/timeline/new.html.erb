@@ -1,6 +1,16 @@
 <h1>タスク達成投稿の作成</h1>
 <div class="post-form">
   <%= form_with model: @timeline_post, url: timeline_index_path do |f| %>
+    <% if @timeline_post.errors.any? %>
+      <div id="error_explanation">
+        <h2>投稿作成に失敗しました</h2>
+        <ul>
+          <% @timeline_post.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
     <div class="post-group">
       <%= f.label :task_ids, "投稿するタスクを選択", class: "form-label" %>
       <div class="task-checkboxes">
@@ -26,4 +36,3 @@
     </div>
   <% end %>
 </div>
-

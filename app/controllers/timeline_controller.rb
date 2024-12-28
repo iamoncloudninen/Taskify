@@ -12,12 +12,16 @@ class TimelineController < ApplicationController
   end
 
   def create
+    current_time = Time.zone.now
     @timeline_post = TimelinePost.new(timeline_post_params)
     @timeline_post.user = current_user
 
     if @timeline_post.save
-      redirect_to timeline_index_path, notice: '投稿しました。'
+      flash[:notice] = "投稿が成功しました！"
+      redirect_to timeline_index_path
     else
+      flash[:alert] = "投稿に失敗しました。入力内容を確認してください。"
+      @tasks = current_user.tasks.where(completed: true, completed_at: current_time.beginning_of_day..current_time.end_of_day)
       render :new
     end
   end
