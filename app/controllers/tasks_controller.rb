@@ -20,7 +20,7 @@ class TasksController < ApplicationController
       flash[:notice] = "タスクを作成しました！#{ai_message}"
       redirect_to dashboard_show_path
     else
-      flash[:alert] = "タスクの作成に失敗しました。"
+      flash[:alert] = "タスクの作成に失敗しました。内容を確認してください。"
       render :new
     end
   end
@@ -36,7 +36,7 @@ class TasksController < ApplicationController
       flash[:notice] = "タスクを更新しました。"
       redirect_to dashboard_show_path(@task)
     else
-      flash[:alert] = "タスクの更新に失敗しました。"
+      flash[:alert] = "タスクの更新に失敗しました。内容を確認してください。"
       render :edit
     end
   end
@@ -49,16 +49,19 @@ class TasksController < ApplicationController
       rescue StandardError => e
         ai_message = "AIメッセージの生成に失敗しました: #{e.message}"
       end
-      redirect_to dashboard_show_path, notice: "タスクを達成しました！#{ai_message}"
+      flash[:notice] = "タスクを達成しました!#{ai_message}"
+      redirect_to dashboard_show_path
     else
-      redirect_to dashboard_show_path, alert: "タスクの達成に失敗しました。"
+      flash[:notice] = "タスクの達成に失敗しました。内容を確認してください"
+      redirect_to dashboard_show_path
     end
   end
 
   def incomplete
     @task = Task.find(params[:id])
     @task.update(completed: false, completed_at: nil)
-    redirect_to dashboard_show_path, notice: 'タスクを未達成に戻しました。'
+    flash[:notice] = "タスクを未達成に戻しました。"
+    redirect_to dashboard_show_path
   end
 
   def destroy
