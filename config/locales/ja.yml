@@ -67,3 +67,6 @@ ja:
     passwords:
       send_instructions: "パスワードリセットの案内をメールで送信しました"
       updated: "パスワードが変更されました"
+    failure:
+      user:
+        already_authenticated: 'すでにログインしています。'
