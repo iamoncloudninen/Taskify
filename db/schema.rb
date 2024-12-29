@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_12_26_153506) do
+ActiveRecord::Schema.define(version: 2024_12_29_162351) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -53,6 +53,15 @@ ActiveRecord::Schema.define(version: 2024_12_26_153506) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["timeline_post_id"], name: "index_reactions_on_timeline_post_id"
     t.index ["user_id"], name: "index_reactions_on_user_id"
+  end
+
+  create_table "task_timeline_posts", force: :cascade do |t|
+    t.integer "task_id", null: false
+    t.integer "timeline_post_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["task_id"], name: "index_task_timeline_posts_on_task_id"
+    t.index ["timeline_post_id"], name: "index_task_timeline_posts_on_timeline_post_id"
   end
 
   create_table "tasks", force: :cascade do |t|
@@ -100,5 +109,7 @@ ActiveRecord::Schema.define(version: 2024_12_26_153506) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "reactions", "timeline_posts"
   add_foreign_key "reactions", "users"
+  add_foreign_key "task_timeline_posts", "tasks"
+  add_foreign_key "task_timeline_posts", "timeline_posts"
   add_foreign_key "timeline_posts", "users"
 end

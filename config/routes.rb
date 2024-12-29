@@ -1,15 +1,17 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
-  root to: "home#index"
+  root to: 'home#index'
 
   devise_for :users
   devise_scope :user do
     post 'users/guest_sign_in', to: 'users/sessions#guest_sign_in'
   end
-  
-  resources :users, except: [:new, :create]
+
+  resources :users, except: %i[new create]
   resources :timeline
   resources :timeline_posts do
-    resources :reactions, only: [:create, :destroy]
+    resources :reactions, only: %i[create destroy]
   end
   resources :tasks do
     member do

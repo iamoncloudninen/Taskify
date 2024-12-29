@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateTimelinePosts < ActiveRecord::Migration[6.1]
   def change
     create_table :timeline_posts do |t|

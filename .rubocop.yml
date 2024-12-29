@@ -1,0 +1,13 @@
+require:
+  - rubocop-rails
+  - rubocop-capybara
+
+AllCops:
+  TargetRubyVersion: 3.1
+  SuggestExtensions: false
+
+Layout/LineLength:
+  Max: 120
+
+Style/Documentation:
+  Enabled: false

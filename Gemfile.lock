@@ -370,6 +370,8 @@ DEPENDENCIES
   refile-mini_magick
   rubocop
   rubocop-airbnb
+  rubocop-capybara
+  rubocop-rails
   ruby-openai
   sass-rails (>= 6)
   selenium-webdriver (>= 4.0.0.rc1)

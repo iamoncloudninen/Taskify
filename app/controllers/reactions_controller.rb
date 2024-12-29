@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 class ReactionsController < ApplicationController
   before_action :set_post
 
   def create
     @post.reactions.create(user: current_user)
-    redirect_back fallback_location: root_path, notice: "頑張ったね！"
+    redirect_back fallback_location: root_path, notice: '頑張ったね！'
   end
 
   private

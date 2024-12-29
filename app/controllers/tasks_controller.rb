@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class TasksController < ApplicationController
-  before_action :set_task, only: [:edit, :update, :complete, :incomplete, :destroy]
+  before_action :set_task, only: %i[edit update complete incomplete destroy]
 
   def new
     @task = Task.new
@@ -7,13 +9,13 @@ class TasksController < ApplicationController
 
   def create
     @task = current_user.tasks.new(task_params)
-    set_deadline_for_today_only if params[:today_only] == "1"
+    set_deadline_for_today_only if params[:today_only] == '1'
 
     if @task.save
       flash[:notice] = "タスクを作成しました！#{generate_ai_message('created', @task)}"
       redirect_to dashboard_show_path
     else
-      flash[:alert] = "タスクの作成に失敗しました。内容を確認してください。"
+      flash[:alert] = 'タスクの作成に失敗しました。内容を確認してください。'
       render :new
     end
   end
@@ -22,10 +24,10 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      flash[:notice] = "タスクを更新しました。"
+      flash[:notice] = 'タスクを更新しました。'
       redirect_to dashboard_show_path
     else
-      flash[:alert] = "タスクの更新に失敗しました。内容を確認してください。"
+      flash[:alert] = 'タスクの更新に失敗しました。内容を確認してください。'
       render :edit
     end
   end
@@ -34,24 +36,25 @@ class TasksController < ApplicationController
     if @task.update(completed: true, completed_at: Time.zone.now)
       flash[:notice] = "タスクを達成しました!#{generate_ai_message('complete', @task)}"
     else
-      flash[:alert] = "タスクの達成に失敗しました。"
+      flash[:alert] = 'タスクの達成に失敗しました。'
     end
     redirect_to dashboard_show_path
   end
 
   def incomplete
     @task.update(completed: false, completed_at: nil)
-    flash[:notice] = "タスクを未達成に戻しました。"
+    flash[:notice] = 'タスクを未達成に戻しました。'
     redirect_to dashboard_show_path
   end
 
   def destroy
     @task.destroy
-    flash[:notice] = "タスクを削除しました。"
+    flash[:notice] = 'タスクを削除しました。'
     redirect_to dashboard_show_path
   end
 
   private
+
   def set_task
     @task = Task.find(params[:id])
   end
@@ -65,23 +68,29 @@ class TasksController < ApplicationController
   end
 
   def generate_ai_message(event, task)
-    prompt = case event
-             when "created"
-               "新しいタスク「#{task.content}」が作成されました。ユーザーを励まして、このタスクを開始するモチベーションをシンプルなメッセージで提供してください。"
-             when "complete"
-               "タスク「#{task.content}」が完了しました！達成感を感じられるようなシンプルなメッセージを送り、次のタスクへのモチベーションを提供してください。"
-             end
+    prompt = select_message(event, task)
+    response = fetch_ai_response(prompt)
+    response.dig('choices', 0, 'message', 'content') || 'AIメッセージ生成に失敗しました。'
+  end
 
-    client = OpenAI::Client.new(access_token: ENV["OPENAI_API_KEY"])
-    response = client.chat(
+  def select_message(event, task)
+    messages = {
+      'created' => "新しいタスク「#{task.content}」が作成されました。ユーザーを励まして、このタスクを開始するモチベーションをシンプルなメッセージで提供してください。",
+      'complete' => "タスク「#{task.content}」が完了しました！達成感を感じられるようなシンプルなメッセージを送り、次のタスクへのモチベーションを提供してください。"
+    }
+    messages[event]
+  end
+
+  def fetch_ai_response(prompt)
+    client = OpenAI::Client.new(access_token: ENV['OPENAI_API_KEY'])
+    client.chat(
       parameters: {
-        model: "gpt-3.5-turbo",
+        model: 'gpt-3.5-turbo',
         messages: [
-          { role: "system", content: "あなたは親切でポジティブなタスクコーチです。" },
-          { role: "user", content: prompt }
+          { role: 'system', content: 'あなたは親切でポジティブなタスクコーチです。' },
+          { role: 'user', content: prompt }
         ]
       }
     )
-    response.dig("choices", 0, "message", "content") || "AIメッセージ生成に失敗しました。"
   end
 end

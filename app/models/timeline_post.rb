@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 class TimelinePost < ApplicationRecord
-  has_and_belongs_to_many :tasks
+  has_many :task_timeline_posts, dependent: :destroy
+  has_many :tasks, through: :task_timeline_posts
   belongs_to :user
   has_many_attached :images
   has_many :reactions, dependent: :destroy
@@ -10,9 +13,9 @@ class TimelinePost < ApplicationRecord
   private
 
   def at_least_one_task_selected
-    if task_ids.blank? || task_ids.reject(&:blank?).empty?
-      errors.add(:task_ids, "少なくとも1つのタスクを選択してください。")
-    end
+    return unless task_ids.blank? || task_ids.reject(&:blank?).empty?
+
+    errors.add(:task_ids, '少なくとも1つのタスクを選択してください。')
   end
 
   def acceptable_images
@@ -20,11 +23,9 @@ class TimelinePost < ApplicationRecord
 
     images.each do |image|
       unless image.content_type.in?(%w[image/jpeg image/png image/gif])
-        errors.add(:images, "JPEG、PNG、またはGIF形式の画像をアップロードしてください。")
+        errors.add(:images, 'JPEG、PNG、またはGIF形式の画像をアップロードしてください。')
       end
-      if image.byte_size > 5.megabytes
-        errors.add(:images, "各画像は5MB以下である必要があります。")
-      end
+      errors.add(:images, '各画像は5MB以下である必要があります。') if image.byte_size > 5.megabytes
     end
   end
 end
