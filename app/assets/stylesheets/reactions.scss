@@ -1,22 +1,56 @@
+.reaction-btn {
+  background: linear-gradient(45deg, #4facfe, #00f2fe);
+  border: none;
+  border-radius: 25px;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  margin-left: 20px;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+}
+
+.reaction-btn i {
+  margin-right: 8px;
+  font-size: 20px;
+}
+
+.reaction-btn:hover {
+  background: linear-gradient(45deg, #3b8ef3, #005cfb);
+  transform: scale(1.05);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.reaction-count {
+  font-size: 14px;
+  color: #657786;
+}
+
 .reaction-list {
-    margin: 10px 20px;
-  }
-  
-  .reaction-list ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .reaction-list li {
-    margin-bottom: 5px;
-  }
-  
-  .reaction-list a {
-    text-decoration: none;
-    color: #007BFF;
-  }
-  
-  .reaction-list a:hover {
-    text-decoration: underline;
-  }
-  
+  margin: 10px 20px;
+}
+
+.reaction-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.reaction-list li {
+  margin-bottom: 5px;
+}
+
+.reaction-list a {
+  text-decoration: none;
+  color: #007BFF;
+}
+
+.reaction-list a:hover {
+  text-decoration: underline;
+}

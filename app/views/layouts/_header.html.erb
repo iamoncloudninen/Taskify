@@ -4,57 +4,19 @@
       <%= link_to image_tag("headerlogo.PNG", alt: "Taskify Logo", class: "header__logo"), root_path %>
     </div>
     <nav class="nav">
-      <div class="nav__toggle" id="navToggle">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
+      <button class="nav__toggle" id="navToggle">☰</button>
       <ul class="nav__wrapper">
-      <div class="close__button" id="closeButton">
-        <span>×</span>
-      </div>
+        <button class="close__button" id="closeButton">×</button>
         <% if user_signed_in? %>
-          <li class="nav__item">
-            <%= link_to dashboard_show_path do %>
-              <i class="fa fa-chart-line icon-large"></i><br>ダッシュボード
-            <% end %>
-          </li>
-          <li class="nav__item">
-            <%= link_to timeline_index_path do %>
-              <i class="fa fa-clock icon-large"></i><br>タイムライン
-            <% end %>
-          </li>
-          <li class="nav__item">
-            <%= link_to pomodoro_index_path do %>
-              <i class="fa fa-stopwatch icon-large"></i><br>ポモドーロ
-            <% end %>
-          </li>
-          <li class="nav__item">
-            <%= link_to user_path(current_user) do %>
-              <i class="fa fa-user-circle icon-large"></i><br>マイページ
-            <% end %>
-          </li>
-          <li class="nav__item">
-            <%= link_to destroy_user_session_path, method: :delete do %>
-              <i class="fa fa-sign-out-alt icon-large"></i><br>ログアウト
-            <% end %>
-          </li>
+          <%= nav_item(dashboard_show_path, "fa-chart-line", "ダッシュボード") %>
+          <%= nav_item(timeline_index_path, "fa-clock", "タイムライン") %>
+          <%= nav_item(pomodoro_index_path, "fa-stopwatch", "ポモドーロ") %>
+          <%= nav_item(user_path(current_user), "fa-user-circle", "マイページ") %>
+          <%= nav_item(destroy_user_session_path, "fa-sign-out-alt", "ログアウト", method: :delete) %>
         <% else %>
-          <li class="nav__item">
-            <%= link_to users_guest_sign_in_path, method: :post do %>
-              <i class="fa fa-user-clock icon-large"></i><br> ゲストログイン
-            <% end %>
-          </li>
-          <li class="nav__item">
-            <%= link_to new_user_session_path do %>
-              <i class="fa fa-sign-in-alt icon-large"></i><br>ログイン
-            <% end %>
-          </li>
-          <li class="nav__item">
-            <%= link_to new_user_registration_path do %>
-              <i class="fa fa-user-plus icon-large"></i><br>新規登録
-            <% end %>
-          </li>
+          <%= nav_item(users_guest_sign_in_path, "fa-user-clock", "ゲストログイン", method: :post) %>
+          <%= nav_item(new_user_session_path, "fa-sign-in-alt", "ログイン") %>
+          <%= nav_item(new_user_registration_path, "fa-user-plus", "新規登録") %>
         <% end %>
       </ul>
     </nav>
@@ -65,14 +27,8 @@
     const navToggle = document.getElementById('navToggle');
     const navWrapper = document.querySelector('.nav__wrapper');
     const closeButton = document.getElementById('closeButton');
-  
-    if (navToggle && navWrapper && closeButton) {
-      navToggle.addEventListener('click', () => {
-        navWrapper.classList.add('active');
-      });
-      closeButton.addEventListener('click', () => {
-        navWrapper.classList.remove('active');
-      });
-    }
+
+    navToggle?.addEventListener('click', () => navWrapper?.classList.add('active'));
+    closeButton?.addEventListener('click', () => navWrapper?.classList.remove('active'));
   });
 </script>

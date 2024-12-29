@@ -1,7 +1,3 @@
-  .dashboard {
-    font-family: Arial, sans-serif;
-  }
-  
   .task-summary {
     text-align: center;
     display: flex;
@@ -14,10 +10,6 @@
     margin-bottom: 10px;
   }
 
-  .tasks-header .btn-primary {
-    margin-left: 10px;
-  }
-  
   .task-card {
     background-color: #f9f9f9;
     border: 1px solid #ddd;
@@ -53,7 +45,7 @@
   
   .tasks h2 {
     margin-top: 0;
-    color: #333;
+    margin-right: 10px;
   }
   
   ul {
@@ -75,11 +67,6 @@
     gap: 10px;
   }
   
-  .task-buttons {
-    display: flex;
-    gap: 10px;
-  }
-  
   li:last-child {
     border-bottom: none;
   }
@@ -89,35 +76,26 @@
     font-weight: bold;
     margin-right: 2px;
   }
-  
-  .da-btn {
+    
+  .task-buttons {
+    display: flex;
+    gap: 10px;
+  }
+
+  .btn-action {
+    border : 1px solid grey;
+    background-color: #f9f9f9;
+    color: #333333;
     padding: 5px 10px;
-    text-decoration: none;
-    border: none;
     cursor: pointer;
     border-radius: 3px;
   }
   
-  .da-btn-primary {
-    background-color: #007bff;
-    color: #f9f9f9;
-    margin-left: 10px;
-  }
-  
-  .da-btn-action {
-    border : 1px solid grey;
-    background-color: #f9f9f9;
-    color: #333333;
-  }
-  
-  .da-btn-complete {
+  .btn-complete {
     border : 1px solid grey;
     border-radius: 50px;
     background-color: #f9f9f9;
     margin-right: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
   }
-  
-  .da-btn:hover {
-    opacity: 0.8;
-  }
-  

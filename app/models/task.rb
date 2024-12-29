@@ -4,7 +4,7 @@ class Task < ApplicationRecord
   validates :content, presence: true, length: { maximum: 255 }
   validates :deadline, presence: true
   validates :priority, inclusion: { in: [true, false] }
-  validate :deadline_cannot_be_in_the_past
+  validate :deadline_cannot_be_in_the_past, on: :create
 
   def deadline_cannot_be_in_the_past
     if deadline.present? && deadline < Time.zone.now

@@ -1,17 +1,14 @@
 class ReactionsController < ApplicationController
-  before_action :find_post
+  before_action :set_post
 
   def create
-    @timeline_posts = TimelinePost.includes(reactions: :user).all
     @post.reactions.create(user: current_user)
-    flash[:notice] = "頑張ったね！"
-    redirect_to request.referer
+    redirect_back fallback_location: root_path, notice: "頑張ったね！"
   end
 
   private
 
-  def find_post
+  def set_post
     @post = TimelinePost.find(params[:timeline_post_id])
   end
 end
-

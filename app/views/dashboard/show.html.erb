@@ -1,103 +1,57 @@
 <div class="dashboard">
   <h1>ダッシュボード</h1>
+
   <div class="task-summary">
-    <div class="task-card">
-      <p>未達成タスク</p>
-      <span class="task-count"><%= @upcoming_tasks.count %></span>
-    </div>
-    <div class="task-card">
-      <p>期限切れタスク</p>
-      <span class="task-count"><%= @outdated_tasks.count %></span>
-    </div>
-    <div class="task-card">
-      <p>本日達成のタスク</p>
-      <span class="task-count"><%= @completed_tasks_today.count %></span>
-    </div>
+    <% [["未達成タスク", @upcoming_tasks], ["期限切れタスク", @outdated_tasks], ["本日達成のタスク", @completed_tasks_today]].each do |title, tasks| %>
+      <div class="task-card">
+        <p><%= title %></p>
+        <span class="task-count"><%= tasks.count %></span>
+      </div>
+    <% end %>
   </div>
-
-  <section class="tasks upcoming">
-    <div class="tasks-header">
-      <h2>未達成タスク</h2>
-      <%= link_to new_task_path, class: "da-btn da-btn-primary" do %>
-        <i class="fa fa-plus"></i> タスク作成
+  <% [["upcoming", "未達成タスク", @upcoming_tasks, new_task_path], ["outdated", "期限切れタスク", @outdated_tasks, nil], ["completed", "本日達成のタスク", @completed_tasks_today, new_timeline_path]].each do |status, title, tasks, action_path| %>
+    <section class="tasks <%= status %>">
+      <div class="tasks-header">
+        <h2><%= title %></h2>  
+        <% if status == "upcoming" %>      
+          <%= link_to new_task_path, class: "btn btn-primary" do %>
+            <i class="fa fa-plus"></i>
+            タスク作成
+          <% end %>
+        <% end %>  
+        <% if status == "completed" && @completed_tasks_today.any? %>
+          <%= link_to new_timeline_path, class: "btn btn-primary" do %>
+            <i class="fa fa-pencil-alt"></i>
+            投稿作成
+          <% end %>
+        <% end %>
+      </div>
+      <% if tasks.any? %>
+        <ul>
+          <% tasks.each do |task| %>
+            <li class="task-li">
+              <div class="task-content">
+                <% if status == "upcoming" || status == "outdated" %>
+                  <%= button_to " ", complete_task_path(task), method: :patch, data: { confirm: 'このタスクを達成しましたか？' }, class: "btn-complete" %>
+                <% elsif status == "completed" %>
+                  <%= button_to "✔️", incomplete_task_path(task), method: :patch, data: { confirm: 'このタスクを未達成に戻しますか？' }, class: "btn-complete" %>
+                <% end %>
+                <span><%= task.content %> <%= status != "completed" ? "| 期限: #{simple_datetime(task.deadline)}" : "" %></span>
+              </div>
+              <div class="task-buttons">
+                <%= link_to edit_task_path(task), class: "btn-action" do %>
+                  <i class="fa fa-edit"></i>
+                <% end %>
+                <%= link_to task_path(task), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn-action" do %>
+                  <i class="fa fa-trash"></i>
+                <% end %>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p><%= status == "upcoming" ? "達成されていないタスクはありません。" : (status == "outdated" ? "期限を過ぎたタスクはありません。" : "本日達成したタスクはありません。") %></p>
       <% end %>
-    </div>
-    <% if @upcoming_tasks.any? %>
-      <ul>
-        <% @upcoming_tasks.each do |task| %>
-          <li class="task-li">
-            <div class="task-content">
-              <%= button_to "  ", complete_task_path(task), method: :patch, data: { confirm: 'このタスクを達成しましたか？' }, class: "da-btn da-btn-complete" %>
-              <% if task.priority %>
-                <span class="priority">優先</span>
-              <% end %>
-              <span><%= task.content %> | 期限: <%= simple_datetime(task.deadline) %></span>
-            </div>
-            <div class="task-buttons">
-              <%= link_to edit_task_path(task), class: "da-btn da-btn-action" do %>
-                <i class="fa fa-edit"></i>
-              <% end %>
-              <%= link_to task_path(task), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "da-btn da-btn-action" do %>
-                <i class="fa fa-trash"></i>
-              <% end %>
-            </div>
-          </li>
-        <% end %>
-      </ul>
-    <% else %>
-      <p>達成されていないタスクはありません。</p>
-    <% end %>
-  </section>
-
-
-  <section class="tasks outdated">
-    <h2>期限切れタスク</h2>
-    <% if @outdated_tasks.any? %>
-      <ul>
-        <% @outdated_tasks.each do |task| %>
-          <li class="task-li">
-            <div class="task-content">
-              <%= button_to "  ", complete_task_path(task), method: :patch, data: { confirm: 'このタスクを達成しましたか？' }, class: "da-btn da-btn-complete" %>
-              <span><%= task.content %> | 期限: <%= simple_datetime(task.deadline) %></span>
-            </div>
-            <div class="task-buttons">
-              <%= link_to edit_task_path(task), class: "da-btn da-btn-action" do %>
-                <i class="fa fa-edit"></i>
-              <% end %>
-              <%= link_to task_path(task), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "da-btn da-btn-action" do %>
-                <i class="fa fa-trash"></i>
-              <% end %>
-            </div>
-          </li>
-        <% end %>
-      </ul>
-    <% else %>
-      <p>期限を過ぎたタスクはありません。</p>
-    <% end %>
-  </section>
-
-  <section class="tasks completed">
-    <div class="tasks-header">
-      <h2>本日達成のタスク</h2>
-      <% if @completed_tasks_today.any? %>
-        <%= link_to new_timeline_path, class: "da-btn da-btn-primary" do %>
-          <i class="fa fa-pencil-alt"></i> 投稿作成
-        <% end %>
-      <% end %>
-    </div>
-    <% if @completed_tasks_today.any? %>
-      <ul>
-        <% @completed_tasks_today.each do |task| %>
-          <li class="task-li">
-            <div class="task-content">
-              <%= button_to "✔️", incomplete_task_path(task), method: :patch, data: { confirm: 'このタスクを未達成に戻しますか？' }, class: "da-btn da-btn-complete" %>
-              <span><%= task.content %></span>
-            </div>
-          </li>
-        <% end %>
-      </ul>
-    <% else %>
-      <p>本日達成したタスクはありません。</p>
-    <% end %>
-  </section>
+    </section>
+  <% end %>
 </div>

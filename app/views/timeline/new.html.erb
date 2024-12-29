@@ -1,5 +1,5 @@
 <h1>タスク達成投稿の作成</h1>
-<div class="post-form">
+<div class="form">
   <%= form_with model: @timeline_post, url: timeline_index_path do |f| %>
     <% if @timeline_post.errors.any? %>
       <div id="error_explanation">
@@ -11,28 +11,27 @@
         </ul>
       </div>
     <% end %>
-    <div class="post-group">
+
+    <div class="form-group">
       <%= f.label :task_ids, "投稿するタスクを選択", class: "form-label" %>
-      <div class="task-checkboxes">
-        <%= f.collection_check_boxes :task_ids, @tasks, :id, :content do |b| %>
-          <div class="task-checkbox-item">
-            <%= b.check_box %>
-            <%= b.label %>
-          </div>
-        <% end %>
-      </div>
+      <%= f.collection_check_boxes :task_ids, @tasks, :id, :content, item_wrapper_class: "task-checkbox-item" do |b| %>
+        <%= b.check_box %> <%= b.label %>
+      <% end %>
     </div>
-    <div class="post-group">
+
+    <div class="form-group">
       <%= f.label :content, "コメント", class: "form-label" %>
-      <%= f.text_area :content, rows: 4, class: "form-input", style: "white-space: pre-wrap;" %>
+      <%= f.text_area :content, rows: 4, class: "form-input" %>
     </div>
-    <div class="post-group">
+
+    <div class="form-group">
       <%= f.label :images, "達成画像を追加", class: "form-label" %>
       <%= f.file_field :images, multiple: true, class: "form-input" %>
     </div>
-    <div class="post-actions">
-      <%= link_to "ダッシュボードに戻る", dashboard_show_path, class: "po-btn po-btn-secondary" %>
-      <%= f.submit "投稿する", class: "po-btn po-btn-primary" %>
+
+    <div class="form-actions">
+      <%= link_to "戻る", dashboard_show_path, class: "btn btn-secondary" %>
+      <%= f.submit "投稿する", class: "btn btn-primary" %>
     </div>
   <% end %>
 </div>

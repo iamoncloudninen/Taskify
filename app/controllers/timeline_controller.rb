@@ -6,22 +6,19 @@ class TimelineController < ApplicationController
   end
 
   def new
-    current_time = Time.zone.now
-    @tasks = current_user.tasks.where(completed: true, completed_at: current_time.beginning_of_day..current_time.end_of_day)
     @timeline_post = TimelinePost.new
+    @tasks = fetch_completed_tasks_for_today
   end
 
   def create
-    current_time = Time.zone.now
-    @timeline_post = TimelinePost.new(timeline_post_params)
-    @timeline_post.user = current_user
+    @timeline_post = current_user.timeline_post.new(timeline_post_params)
 
     if @timeline_post.save
       flash[:notice] = "投稿が成功しました！"
       redirect_to timeline_index_path
     else
       flash[:alert] = "投稿に失敗しました。入力内容を確認してください。"
-      @tasks = current_user.tasks.where(completed: true, completed_at: current_time.beginning_of_day..current_time.end_of_day)
+      @tasks = fetch_completed_tasks_for_today
       render :new
     end
   end
@@ -37,5 +34,10 @@ class TimelineController < ApplicationController
   private
   def timeline_post_params
     params.require(:timeline_post).permit(:content, task_ids: [], images: [])
+  end
+
+  def fetch_completed_tasks_for_today
+    current_time = Time.zone.now
+    current_user.tasks.where(completed: true, completed_at: current_time.beginning_of_day..current_time.end_of_day)
   end
 end

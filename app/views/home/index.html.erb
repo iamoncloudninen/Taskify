@@ -3,39 +3,42 @@
     <h1 class="home-h1">Make task management easier.</h1>
     <p class="home-p">Taskifyでタスク管理をもっと簡単に、もっと効率的に。</p>
     <%= link_to "ゲストログイン", users_guest_sign_in_path, method: :post, class: "cta-button" %>
-    <%= link_to "ログイン", new_user_session_path, class: "cta-button"  %>
-    <%= link_to "新規登録", new_user_registration_path, class: "cta-button"  %>
+    <%= link_to "ログイン", new_user_session_path, class: "cta-button" %>
+    <%= link_to "新規登録", new_user_registration_path, class: "cta-button" %>
   </div>
 </div>
+
 <section class="about">
   <h1 class="home-h1">What's Taskify?</h1>
   <p class="home-p">Taskifyは、タスク管理をサポートするアプリです。</p>
   <div class="features">
-    <div class="feature-item">
-    <%= image_tag "dashboard.jpg", alt:"タスク管理のイメージ", class:"feature-image" %>
-      <h3>タスク管理</h3>
-      <p class="home-p">日々のタスクを簡単に追加・管理できます。</p>
-    </div>
-    <div class="feature-item">
-    <%= image_tag "pomodoro.jpg", alt:"ポモドーロタイマーのイメージ", class:"feature-image" %>
-      <h3>ポモドーロタイマー</h3>
-      <p class="home-p">集中力を高めるタイマー機能付き。</p>
-    </div>
-    <div class="feature-item">
-    <%= image_tag "timeline.jpg", alt:"タイムラインのイメージ", class:"feature-image" %>
-      <h3>タイムライン機能</h3>
-      <p class="home-p">仲間と進捗を共有し、励まし合いましょう。</p>
-    </div>
+    <% [
+      { image: "dashboard.jpg", title: "タスク管理", text: "日々のタスクを簡単に追加・管理できます。" },
+      { image: "pomodoro.jpg", title: "ポモドーロタイマー", text: "集中力を高めるタイマー機能付き。" },
+      { image: "timeline.jpg", title: "タイムライン機能", text: "仲間と進捗を共有し、励まし合いましょう。" }
+    ].each do |feature| %>
+      <div class="feature-item">
+        <%= image_tag feature[:image], alt: feature[:title], class: "feature-image" %>
+        <h3><%= feature[:title] %></h3>
+        <p><%= feature[:text] %></p>
+      </div>
+    <% end %>
   </div>
 </section>
+
 <section class="how-to-use">
   <h1 class="home-h1">How to use</h1>
-  <p class="home-p">Step1: アカウントを作成し、ログインします。</p>
-  <p class="home-p">Step2: やるべきタスクを作成して、ポモドーロタイマーを開始します。</p>
-  <p class="home-p">Step3: タスク完了後、本日分の進捗をタイムラインに投稿します。</p>
+  <% [
+    "Step1: アカウントを作成し、ログインします。",
+    "Step2: やるべきタスクを作成して、ポモドーロタイマーを開始します。",
+    "Step3: タスク完了後、本日分の進捗をタイムラインに投稿します。"
+  ].each do |step| %>
+    <p class="home-p"><%= step %></p>
+  <% end %>
 </section>
+
 <section class="cta">
   <h2>さあ、始めましょう！</h2>
   <p class="home-p">Taskifyで新しい習慣を作りましょう。無料で始められます!</p>
-  <%= link_to "新規登録はこちら", new_user_registration_path, class: "cta-button"  %>
+  <%= link_to "新規登録はこちら", new_user_registration_path, class: "cta-button" %>
 </section>

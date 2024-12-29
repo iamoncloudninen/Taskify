@@ -4,7 +4,7 @@
     <div class="post-header">
       <%= attachment_image_tag post.user, :profile_image, fallback: "no_image.png", size: "50x50", class: "profile-img" %>
       <%= link_to post.user.username, user_path(post.user), class: "username-link" %>
-      <% if post.user.id == current_user.id %>
+      <% if post.user == current_user %>
         <%= link_to timeline_path(post), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "delete-btn" do %>
           <i class="fa fa-trash"></i>
         <% end %>
@@ -17,6 +17,7 @@
           <li><%= task.content %></li>
         <% end %>
       </ul>
+
       <p class="comment-header">
         <span class="comment-label">コメント:</span>
         <span class="comment-content"><%= simple_format(post.content) %></span>
@@ -37,8 +38,9 @@
       <% end %>
       <span class="reaction-count">頑張ったね数: <%= post.reactions.count %></span>
     </div>
-    <div class="reaction-list">
-      <p class="reaction-header">頑張ったねした人:</p>
+    <% if post.reactions.any? %>
+      <div class="reaction-list">
+        <p>頑張ったねした人:</p>
         <ul>
           <% post.reactions.includes(:user).group_by(&:user).each do |user, reactions| %>
             <li>
@@ -47,7 +49,7 @@
             </li>
           <% end %>
         </ul>
-      </p>
-    </div>
+      </div>
+    <% end %>
   </div>
 <% end %>

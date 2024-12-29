@@ -1,5 +1,5 @@
 <h1>アカウント設定</h1>
-<div class="user-form">
+<div class="form">
   <%= form_for @user do |f| %>
     <div class="form-group">
       <%= f.label :username, "ユーザー名", class: "form-label" %>
@@ -17,8 +17,8 @@
     </div>
     
     <div class="form-actions">
-      <%= link_to "戻る", request.referer, class: "u-btn u-btn-secondary" %>
-      <%= f.submit "更新する", class: "u-btn u-btn-primary" %>
+      <%= link_to "戻る", request.referer, class: "btn btn-secondary" %>
+      <%= f.submit "更新する", class: "btn btn-primary" %>
     </div>
   <% end %>
 </div>

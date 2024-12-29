@@ -1,21 +1,26 @@
 Rails.application.routes.draw do
-  get 'reactions/create'
-  get 'reactions/destroy'
-  get 'pomodoro/index'
-  get 'dashboard/show'
-  get 'timers', to: 'timers#index'
+  root to: "home#index"
+
+  devise_for :users
+  devise_scope :user do
+    post 'users/guest_sign_in', to: 'users/sessions#guest_sign_in'
+  end
+  
+  resources :users, except: [:new, :create]
   resources :timeline
   resources :timeline_posts do
     resources :reactions, only: [:create, :destroy]
   end
   resources :tasks do
-    patch :complete, on: :member
-    patch :incomplete, on: :member
+    member do
+      patch :complete
+      patch :incomplete
+    end
   end
-  devise_for :users
-  resources :users, only: [:show, :index, :edit, :update, :destroy]
-  root to: "home#index"
-  devise_scope :user do
-    post 'users/guest_sign_in', to: 'users/sessions#guest_sign_in'
-  end  
+  resources :timers, only: [:index]
+  get 'pomodoro/index'
+  get 'dashboard/show'
+
+  get 'reactions/create', to: 'reactions#create'
+  get 'reactions/destroy', to: 'reactions#destroy'
 end

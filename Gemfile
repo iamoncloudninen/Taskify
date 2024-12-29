@@ -60,7 +60,6 @@ gem 'rubocop-airbnb', require: false
 gem 'devise'
 gem 'refile', require: 'refile/rails', github: 'manfe/refile'
 gem 'refile-mini_magick'
-gem 'bulma-rails'
 gem 'font-awesome-sass', '~> 6.0'
 gem 'ruby-openai'
 gem 'dotenv-rails'
