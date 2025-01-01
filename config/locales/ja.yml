@@ -15,9 +15,15 @@ ja:
         content: コメント
         task_ids: タスク
         images: 画像
+      user:
+        email: メールアドレス
+        password: パスワード
+        password_confirmation: 確認用パスワード
     errors:
       messages:
         blank: "を入力してください"
+        confirmation: "確認用パスワードが一致しません"
+        not_saved: "保存できませんでした"
         too_long: "は%{count}文字以内で入力してください"
         invalid: "は不正な値です"
         inclusion: "は有効な値ではありません"
@@ -27,6 +33,10 @@ ja:
           attributes:
             task_ids:
               blank: "少なくとも1つのタスクを選択してください。"
+        user:
+          attributes:
+            password_confirmation:
+              confirmation: "パスワードと確認用パスワードが一致しません"
   helpers:
     submit:
       create: "%{model}を作成する"
@@ -70,3 +80,5 @@ ja:
     failure:
       user:
         already_authenticated: 'すでにログインしています。'
+        invalid: "無効なメールアドレスかパスワードです"
+      invalid: "無効なログイン情報です"

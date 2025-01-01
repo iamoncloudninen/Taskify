@@ -11,7 +11,7 @@ module ApplicationHelper
 
   def nav_item(path, icon_class, label, method: :get)
     content_tag :li, class: 'nav__item' do
-      link_to(path, method:) do
+      link_to(path, method: method) do
         concat(content_tag(:i, '', class: "fa #{icon_class} icon-large"))
         concat(tag.br)
         concat(label)

@@ -9,10 +9,9 @@ Rails.application.routes.draw do
   end
 
   resources :users, except: %i[new create]
-  resources :timeline
-  resources :timeline_posts do
+  resources :timeline, only: [:index, :new, :create, :destroy] do
     resources :reactions, only: %i[create destroy]
-  end
+  end  
   resources :tasks do
     member do
       patch :complete

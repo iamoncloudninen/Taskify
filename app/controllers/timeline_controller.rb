@@ -30,7 +30,7 @@ class TimelineController < ApplicationController
     return unless @timeline_post.destroy
 
     flash[:notice] = '投稿を削除しました。'
-    redirect_to request.referer
+    redirect_to(request.referer || timeline_index_path, notice: '投稿を削除しました。')
   end
 
   private

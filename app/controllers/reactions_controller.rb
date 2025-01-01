@@ -11,6 +11,6 @@ class ReactionsController < ApplicationController
   private
 
   def set_post
-    @post = TimelinePost.find(params[:timeline_post_id])
+    @post = TimelinePost.find(params[:timeline_id])
   end
 end
