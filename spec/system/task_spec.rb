@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'タスク', type: :system do
@@ -41,7 +43,9 @@ RSpec.describe 'タスク', type: :system do
   end
 
   describe 'タスクの達成' do
-    let!(:task) { user.tasks.create(content: '未達成のタスク', deadline: Time.zone.now.end_of_day, priority: false, completed: false) }
+    let!(:task) do
+      user.tasks.create(content: '未達成のタスク', deadline: Time.zone.now.end_of_day, priority: false, completed: false)
+    end
     it 'タスクを達成済みに変更できること' do
       visit dashboard_show_path
       page.accept_confirm do
@@ -52,7 +56,10 @@ RSpec.describe 'タスク', type: :system do
   end
 
   describe 'タスクの未達成' do
-    let!(:task) { user.tasks.create(content: '達成済みのタスク', deadline: Time.zone.now.end_of_day, priority: false, completed: true, completed_at: Time.zone.now.beginning_of_day) }
+    let!(:task) do
+      user.tasks.create(content: '達成済みのタスク', deadline: Time.zone.now.end_of_day, priority: false, completed: true,
+                        completed_at: Time.zone.now.beginning_of_day)
+    end
     it 'タスクを未達成に変更できること' do
       visit dashboard_show_path
       page.accept_confirm do

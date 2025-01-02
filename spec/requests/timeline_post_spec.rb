@@ -4,7 +4,10 @@ require 'rails_helper'
 
 RSpec.describe 'TimelinePosts', type: :request do
   let(:user) { User.create(email: 'test@example.com', password: 'password123', password_confirmation: 'password123') }
-  let(:task) { user.tasks.create(content: 'Test task', deadline: Time.zone.now.end_of_day, priority: true, completed: true, completed_at: Time.zone.now) }
+  let(:task) do
+    user.tasks.create(content: 'Test task', deadline: Time.zone.now.end_of_day, priority: true, completed: true,
+                      completed_at: Time.zone.now)
+  end
   let(:timeline_post) { TimelinePost.create(content: 'Test timeline post', user: user, tasks: [task]) }
 
   before do
@@ -16,7 +19,7 @@ RSpec.describe 'TimelinePosts', type: :request do
       get timeline_index_path
       expect(response).to have_http_status(:success)
       expect(response.body).to include('タイムライン')
-    end  
+    end
     it '投稿作成ページが表示されること' do
       get new_timeline_path
       expect(response).to have_http_status(:success)
@@ -32,15 +35,15 @@ RSpec.describe 'TimelinePosts', type: :request do
             content: 'Test timeline post',
             task_ids: [task.id]
           }
-        } 
-        expect { 
+        }
+        expect do
           post timeline_index_path, params: timeline_post_params
-        }.to change(TimelinePost, :count).by(1)
+        end.to change(TimelinePost, :count).by(1)
         expect(response).to redirect_to(timeline_index_path)
         follow_redirect!
         expect(response.body).to include('投稿が成功しました！')
       end
-    end      
+    end
 
     context '無効なパラメータの場合' do
       it '投稿を作成できないこと' do
@@ -50,9 +53,9 @@ RSpec.describe 'TimelinePosts', type: :request do
             task_ids: []
           }
         }
-        expect {
+        expect do
           post timeline_index_path, params: timeline_post_params
-        }.not_to change(TimelinePost, :count)
+        end.not_to change(TimelinePost, :count)
         expect(response).to render_template(:new)
         expect(response.body).to include('投稿に失敗しました。入力内容を確認してください。')
       end
@@ -62,9 +65,9 @@ RSpec.describe 'TimelinePosts', type: :request do
   describe '投稿の削除についてのテスト' do
     it '投稿を削除できること' do
       timeline_post
-      expect {
+      expect do
         delete timeline_path(timeline_post)
-      }.to change(TimelinePost, :count).by(-1)
+      end.to change(TimelinePost, :count).by(-1)
       expect(response).to redirect_to(timeline_index_path)
       follow_redirect!
       expect(response.body).to include('投稿を削除しました。')

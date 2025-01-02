@@ -13,6 +13,7 @@ class TimelinePost < ApplicationRecord
 
   def at_least_one_task_selected
     return unless task_ids.blank? || task_ids.reject(&:blank?).empty?
+
     errors.add(:task_ids, '少なくとも1つのタスクを選択してください。')
   end
 end

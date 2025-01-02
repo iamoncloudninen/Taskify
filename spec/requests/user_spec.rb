@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'Users', type: :request do
@@ -14,9 +15,9 @@ RSpec.describe 'Users', type: :request do
             password_confirmation: 'password123'
           }
         }
-        expect {
+        expect do
           post user_registration_path, params: user_params
-        }.to change(User, :count).by(1)
+        end.to change(User, :count).by(1)
         expect(response).to have_http_status(:see_other)
         expect(response).to redirect_to(dashboard_show_path)
       end
@@ -30,9 +31,9 @@ RSpec.describe 'Users', type: :request do
             password_confirmation: 'wrongpassword'
           }
         }
-        expect {
+        expect do
           post user_registration_path, params: user_params
-        }.not_to change(User, :count)
+        end.not_to change(User, :count)
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.body).to include('パスワードと確認用パスワードが一致しません')
       end

@@ -28,9 +28,9 @@ RSpec.describe 'Tasks', type: :request do
             priority: true
           }
         }
-        expect {
+        expect do
           post tasks_path, params: task_params
-        }.to change(Task, :count).by(1)
+        end.to change(Task, :count).by(1)
         expect(response).to redirect_to(dashboard_show_path)
         follow_redirect!
         expect(response.body).to include('タスクを作成しました')
@@ -46,9 +46,9 @@ RSpec.describe 'Tasks', type: :request do
             priority: ''
           }
         }
-        expect {
+        expect do
           post tasks_path, params: task_params
-        }.not_to change(Task, :count)
+        end.not_to change(Task, :count)
         expect(response).to render_template(:new)
         expect(response.body).to include('タスクの作成に失敗しました')
       end
@@ -104,9 +104,9 @@ RSpec.describe 'Tasks', type: :request do
   describe 'タスクの削除についてのテスト' do
     it 'タスクを削除できること' do
       task
-      expect {
+      expect do
         delete task_path(task)
-      }.to change(Task, :count).by(-1)
+      end.to change(Task, :count).by(-1)
       expect(response).to redirect_to(dashboard_show_path)
       follow_redirect!
       expect(response.body).to include('タスクを削除しました')

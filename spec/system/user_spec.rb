@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'Devise関連のテスト', type: :system do
   let!(:user) { User.create(username: 'Test user', email: 'test@example.com', password: 'password123') }
-  
+
   describe 'ユーザーのサインイン' do
     it '正しいメールアドレスとパスワードでサインインできること' do
       visit new_user_session_path

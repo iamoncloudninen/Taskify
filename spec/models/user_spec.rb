@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
@@ -14,17 +15,17 @@ RSpec.describe User, type: :model do
       expect(duplicate_user).not_to be_valid
     end
     it 'パスワードが6文字以上であること' do
-        user.password = 'short'
-        user.password_confirmation = 'short'
-        expect(user).not_to be_valid
+      user.password = 'short'
+      user.password_confirmation = 'short'
+      expect(user).not_to be_valid
     end
     it 'パスワードと確認用パスワードが一致していること' do
-        user.password = 'password123'
-        user.password_confirmation = 'mismatch'
-        expect(user).not_to be_valid
+      user.password = 'password123'
+      user.password_confirmation = 'mismatch'
+      expect(user).not_to be_valid
     end
     it 'パスワードが暗号化されて保存されること' do
-        expect(user.encrypted_password).not_to eq('password123')
+      expect(user.encrypted_password).not_to eq('password123')
     end
   end
 
