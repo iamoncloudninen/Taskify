@@ -1,0 +1,15 @@
+current directory: /Users/hana/potepan/Taskify/vendor/bundle/ruby/3.0.0/gems/websocket-driver-0.7.6/ext/websocket-driver
+/Users/hana/.rbenv/versions/3.0.4/bin/ruby -I /Users/hana/.rbenv/versions/3.0.4/lib/ruby/3.0.0 -r ./siteconf20250104-45664-xoxrhn.rb extconf.rb
+creating Makefile
+
+current directory: /Users/hana/potepan/Taskify/vendor/bundle/ruby/3.0.0/gems/websocket-driver-0.7.6/ext/websocket-driver
+make DESTDIR\= clean
+
+current directory: /Users/hana/potepan/Taskify/vendor/bundle/ruby/3.0.0/gems/websocket-driver-0.7.6/ext/websocket-driver
+make DESTDIR\=
+compiling websocket_mask.c
+linking shared-object websocket_mask.bundle
+
+current directory: /Users/hana/potepan/Taskify/vendor/bundle/ruby/3.0.0/gems/websocket-driver-0.7.6/ext/websocket-driver
+make DESTDIR\= install
+/usr/bin/install -c -m 0755 websocket_mask.bundle ./.gem.20250104-45664-op3w8b

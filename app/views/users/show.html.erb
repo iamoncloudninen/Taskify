@@ -57,7 +57,7 @@
       <p class="post-time">投稿日時: <%= post.created_at.strftime("%Y/%m/%d %H:%M") %></p>
     </div>
     <div class="post-actions">
-      <%= button_to timeline_post_reactions_path(post), method: :post, class: "reaction-btn" do %>
+      <%= button_to timeline_reactions_path(post), method: :post, class: "reaction-btn" do %>
         <i class="fa fa-thumbs-up"></i> よく頑張ったね！
       <% end %>
       <span class="reaction-count">頑張ったね数: <%= post.reactions.count %></span>
