@@ -5,6 +5,10 @@ module.exports = function(api) {
   var isProductionEnv = api.env('production')
   var isTestEnv = api.env('test')
 
+  return {
+    plugins: ["@babel/plugin-proposal-private-methods"]
+  };
+
   if (!validEnv.includes(currentEnv)) {
     throw new Error(
       'Please specify a valid `NODE_ENV` or ' +
