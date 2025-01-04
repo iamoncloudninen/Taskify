@@ -17,10 +17,10 @@
     "webpack-dev-server": "^3.11.3"
   },
   "engines": {
-    "node": "16.x",
-    "yarn": "1.22.x"
-  },
+    "yarn": "1.22.x",
+    "node": ">=18"
+  },  
   "scripts": {
-    "start": "node index.js"
+    "start": "bin/rails server"
   }
 }
