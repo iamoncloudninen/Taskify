@@ -76,3 +76,4 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'rake'
 gem 'bundler', '~> 2.5'
 gem 'rails_12factor', group: :production
+gem 'uri', '~> 1.0.2'
