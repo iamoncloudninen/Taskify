@@ -73,3 +73,4 @@ gem 'rubocop-capybara'
 gem 'rubocop-rails'
 gem 'ruby-openai'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+gem 'rake'
