@@ -74,3 +74,4 @@ gem 'rubocop-rails'
 gem 'ruby-openai'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'rake'
+gem 'bundler', '~> 2.5'

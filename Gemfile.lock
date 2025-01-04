@@ -392,6 +392,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootsnap (>= 1.4.4)
+  bundler (~> 2.5)
   byebug
   capybara (>= 3.26)
   database_cleaner-active_record (~> 2.0)
