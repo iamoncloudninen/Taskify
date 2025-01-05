@@ -78,3 +78,6 @@ gem 'bundler', '~> 2.5'
 gem 'rails_12factor', group: :production
 gem 'uri', '~> 1.0.2'
 gem 'uglifier'
+gem 'bigdecimal'
+gem 'mutex_m'
+gem 'pg'
