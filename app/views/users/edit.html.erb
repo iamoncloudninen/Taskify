@@ -3,12 +3,22 @@
   <%= form_for @user do |f| %>
     <div class="form-group">
       <%= f.label :username, "ユーザー名", class: "form-label" %>
-      <%= f.text_field :username, class: "form-input" %>
+      <%= f.text_field :username, class: "form-input #{'is-invalid' if @user.errors[:username].any?}" %>
+      <% if @user.errors[:username].any? %>
+        <div class="error-message">
+          <%= @user.errors.full_messages_for(:username).join(", ") %>
+        </div>
+      <% end %>
     </div>
   
     <div class="form-group">
       <%= f.label :email, "メールアドレス", class: "form-label" %>
-      <%= f.text_field :email, class: "form-input" %>
+      <%= f.text_field :email, class: "form-input #{'is-invalid' if @user.errors[:email].any?}" %>
+      <% if @user.errors[:email].any? %>
+        <div class="error-message">
+          <%= @user.errors.full_messages_for(:email).join(", ") %>
+        </div>
+      <% end %>
     </div>
   
     <div class="form-group">

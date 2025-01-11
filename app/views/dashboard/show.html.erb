@@ -36,7 +36,15 @@
                 <% elsif status == "completed" %>
                   <%= button_to "✔️", incomplete_task_path(task), method: :patch, data: { confirm: 'このタスクを未達成に戻しますか？' }, class: "btn-complete" %>
                 <% end %>
-                <span><%= task.content %> <%= status != "completed" ? "| 期限: #{simple_datetime(task.deadline)}" : "" %></span>
+                <% if task.priority %>
+                  <span class="priority">優先</span>
+                <% end %>
+                <span>
+                  <%= task.content %> 
+                  <% if status != "completed" %>
+                    <span class="task-deadline">期限: <%= simple_datetime(task.deadline) %></span>
+                  <% end %>
+                </span>
               </div>
               <div class="task-buttons">
                 <%= link_to edit_task_path(task), class: "btn-action" do %>

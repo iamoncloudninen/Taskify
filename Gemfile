@@ -62,9 +62,15 @@ group :test do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem 'bigdecimal'
+gem 'bundler', '~> 2.5'
 gem 'devise'
 gem 'dotenv-rails'
 gem 'font-awesome-sass', '~> 6.0'
+gem 'mutex_m'
+gem 'pg'
+gem 'rails_12factor', group: :production
+gem 'rake'
 gem 'refile', require: 'refile/rails', github: 'manfe/refile'
 gem 'refile-mini_magick'
 gem 'rubocop', require: false
@@ -73,11 +79,5 @@ gem 'rubocop-capybara'
 gem 'rubocop-rails'
 gem 'ruby-openai'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
-gem 'rake'
-gem 'bundler', '~> 2.5'
-gem 'rails_12factor', group: :production
-gem 'uri', '~> 1.0.2'
 gem 'uglifier'
-gem 'bigdecimal'
-gem 'mutex_m'
-gem 'pg'
+gem 'uri', '~> 1.0.2'

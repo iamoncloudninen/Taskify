@@ -1,7 +1,11 @@
 <div class="Header">
   <div class="wrapper site-header__wrapper">
     <div class="logo">
-      <%= link_to image_tag("headerlogo.PNG", alt: "Taskify Logo", class: "header__logo"), root_path %>
+      <% if user_signed_in? %>
+        <%= link_to image_tag("headerlogo.PNG", alt: "Taskify Logo", class: "header__logo"), dashboard_show_path %>
+      <% else %>
+        <%= link_to image_tag("headerlogo.PNG", alt: "Taskify Logo", class: "header__logo"), root_path %>
+      <% end %>
     </div>
     <nav class="nav">
       <button class="nav__toggle" id="navToggle">☰</button>
