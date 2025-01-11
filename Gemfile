@@ -71,9 +71,9 @@ gem 'mutex_m'
 gem 'pg'
 gem 'rails_12factor', group: :production
 gem 'rake'
-gem 'refile', require: 'refile/rails', github: 'manfe/refile'
-gem 'refile-mini_magick'
-gem 'refile-s3', '~> 0.2.0'
+gem 'aws-sdk-s3', '~> 1.0'
+gem 'aws-sdk-s3', '~> 1.0'
+gem 'image_processing', '~> 1.2'
 gem 'rubocop', require: false
 gem 'rubocop-airbnb', require: false
 gem 'rubocop-capybara'
