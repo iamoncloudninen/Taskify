@@ -35,6 +35,7 @@ Rails.application.configure do
   config.assets.debug = false
   config.assets.js_compressor = :uglifier
   config.assets.css_compressor = :sass
+  config.active_storage.service = :amazon
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.asset_host = 'http://assets.example.com'

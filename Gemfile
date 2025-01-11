@@ -72,7 +72,6 @@ gem 'pg'
 gem 'rails_12factor', group: :production
 gem 'rake'
 gem 'aws-sdk-s3', '~> 1.0'
-gem 'aws-sdk-s3', '~> 1.0'
 gem 'image_processing', '~> 1.2'
 gem 'rubocop', require: false
 gem 'rubocop-airbnb', require: false
