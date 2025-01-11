@@ -3,7 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe 'TimelinePosts', type: :request do
-  let(:user) { User.create(email: 'test@example.com', password: 'password123', password_confirmation: 'password123') }
+  let(:user) do
+    User.create(username: 'Test user', email: 'test@example.com', password: 'password123',
+                password_confirmation: 'password123')
+  end
   let(:task) do
     user.tasks.create(content: 'Test task', deadline: Time.zone.now.end_of_day, priority: true, completed: true,
                       completed_at: Time.zone.now)

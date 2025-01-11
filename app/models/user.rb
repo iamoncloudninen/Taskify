@@ -18,6 +18,7 @@ class User < ApplicationRecord
       user.username = 'ゲストユーザー'
     end
   end
+
   private
 
   def password_required?

@@ -62,17 +62,17 @@ group :test do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem 'aws-sdk-s3', '~> 1.0'
 gem 'bigdecimal'
 gem 'bundler', '~> 2.5'
 gem 'devise'
 gem 'dotenv-rails'
 gem 'font-awesome-sass', '~> 6.0'
+gem 'image_processing', '~> 1.2'
 gem 'mutex_m'
 gem 'pg'
 gem 'rails_12factor', group: :production
 gem 'rake'
-gem 'aws-sdk-s3', '~> 1.0'
-gem 'image_processing', '~> 1.2'
 gem 'rubocop', require: false
 gem 'rubocop-airbnb', require: false
 gem 'rubocop-capybara'

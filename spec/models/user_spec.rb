@@ -3,7 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  let(:user) { User.create(email: 'test@example.com', password: 'password123', password_confirmation: 'password123') }
+  let(:user) do
+    User.create(username: 'Test user', email: 'test@example.com', password: 'password123',
+                password_confirmation: 'password123')
+  end
   describe 'バリデーションのテスト' do
     it 'メールアドレスとパスワードが必須であること' do
       expect(user).to validate_presence_of(:email)

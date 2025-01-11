@@ -22,7 +22,6 @@ class UsersController < ApplicationController
       render :edit
     end
   end
-  
 
   def destroy
     @user.destroy

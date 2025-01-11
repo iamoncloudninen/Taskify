@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 RSpec.describe TimelinePost, type: :model do
-  let(:user) { User.create(email: 'test@example.com', password: 'password123', password_confirmation: 'password123') }
+  let(:user) do
+    User.create(username: 'Test user', email: 'test@example.com', password: 'password123',
+                password_confirmation: 'password123')
+  end
   let(:task) { user.tasks.create(content: 'Test task', deadline: 1.week.from_now, priority: true) }
   let(:timeline_post) { TimelinePost.create(content: 'Test timeline post', user: user, tasks: [task]) }
   describe 'バリデーションのテスト' do
