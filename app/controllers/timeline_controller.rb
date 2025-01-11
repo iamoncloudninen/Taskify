@@ -4,7 +4,7 @@ class TimelineController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @timeline_posts = TimelinePost.all.order(created_at: :desc)
+    @timeline_posts = TimelinePost.includes(:tasks, :images_attachments, :reactions).order(created_at: :desc)
   end
 
   def new

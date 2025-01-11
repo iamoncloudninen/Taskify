@@ -9,7 +9,7 @@ class UsersController < ApplicationController
             else
               User.find(params[:id])
             end
-    @timeline_posts = @user.timeline_post.order(created_at: :desc)
+    @timeline_posts = @user.timeline_post.includes(:tasks, :images_attachments, :reactions).order(created_at: :desc)
   end
 
   def edit; end

@@ -42,7 +42,7 @@
       <p class="task-header">達成したタスク:</p>
       <ul class="task-list">
         <% post.tasks.each do |task| %>
-          <li><%= task.content %></li>
+          <li>・<%= task.content %></li>
         <% end %>
       </ul>
       <p class="comment-header">コメント: <span class="comment-content"><%= simple_format(post.content) %></span></p>
