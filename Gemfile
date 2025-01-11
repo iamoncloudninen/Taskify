@@ -73,6 +73,7 @@ gem 'rails_12factor', group: :production
 gem 'rake'
 gem 'refile', require: 'refile/rails', github: 'manfe/refile'
 gem 'refile-mini_magick'
+gem 'aws-sdk-s3', require: false
 gem 'rubocop', require: false
 gem 'rubocop-airbnb', require: false
 gem 'rubocop-capybara'
