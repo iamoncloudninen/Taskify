@@ -1,5 +1,4 @@
 require "refile/s3"
-require "aws-sdk-s3"
 
 Aws.config.update({
   region: ENV["AWS_REGION"],
