@@ -1,4 +1,4 @@
-require "refile/backend/s3"
+require "refile/s3"
 require "aws-sdk-s3"
 
 Aws.config.update({
@@ -9,5 +9,12 @@ Aws.config.update({
 s3 = Aws::S3::Resource.new
 bucket = s3.bucket(ENV["AWS_BUCKET"])
 
-Refile.cache = Refile::Backend::S3.new(prefix: "cache", bucket: bucket)
-Refile.store = Refile::Backend::S3.new(prefix: "store", bucket: bucket)
+Refile.cache = Refile::S3::Backend.new(
+  prefix: "cache", 
+  bucket: bucket
+)
+
+Refile.store = Refile::S3::Backend.new(
+  prefix: "store", 
+  bucket: bucket
+)
