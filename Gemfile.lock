@@ -1,12 +1,3 @@
-GIT
-  remote: https://github.com/manfe/refile.git
-  revision: 46b4178654e60bb5846b1423acf6d0740cdecc25
-  specs:
-    refile (0.6.2)
-      mime-types
-      rest-client (~> 2)
-      sinatra (~> 2.0.0.beta2)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -72,8 +63,25 @@ GEM
     addressable (2.8.7)
       public_suffix (>= 2.0.2, < 7.0)
     ast (2.4.2)
+    aws-eventstream (1.3.0)
+    aws-partitions (1.1035.0)
+    aws-sdk-core (3.215.0)
+      aws-eventstream (~> 1, >= 1.3.0)
+      aws-partitions (~> 1, >= 1.992.0)
+      aws-sigv4 (~> 1.9)
+      jmespath (~> 1, >= 1.6.1)
+    aws-sdk-kms (1.96.0)
+      aws-sdk-core (~> 3, >= 3.210.0)
+      aws-sigv4 (~> 1.5)
+    aws-sdk-s3 (1.177.0)
+      aws-sdk-core (~> 3, >= 3.210.0)
+      aws-sdk-kms (~> 1)
+      aws-sigv4 (~> 1.5)
+    aws-sigv4 (1.11.0)
+      aws-eventstream (~> 1, >= 1.0.2)
     base64 (0.2.0)
     bcrypt (3.1.20)
+    bigdecimal (3.1.9)
     bindex (0.8.1)
     bootsnap (1.18.4)
       msgpack (~> 1.2)
@@ -103,13 +111,13 @@ GEM
       responders
       warden (~> 1.2.3)
     diff-lcs (1.5.1)
-    domain_name (0.6.20240107)
     dotenv (3.1.7)
     dotenv-rails (3.1.7)
       dotenv (= 3.1.7)
       railties (>= 6.1)
     erubi (1.13.1)
     event_stream_parser (1.0.0)
+    execjs (2.10.0)
     factory_bot (6.5.0)
       activesupport (>= 5.0.0)
     factory_bot_rails (6.4.4)
@@ -137,20 +145,21 @@ GEM
       sassc (~> 2.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
-    http-accept (1.7.0)
-    http-cookie (1.0.8)
-      domain_name (~> 0.5)
     i18n (1.14.6)
       concurrent-ruby (~> 1.0)
+    image_processing (1.13.0)
+      mini_magick (>= 4.9.5, < 5)
+      ruby-vips (>= 2.0.17, < 3)
     jbuilder (2.13.0)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
+    jmespath (1.6.2)
     json (2.9.1)
     language_server-protocol (3.17.0.3)
     listen (3.9.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
-    logger (1.6.4)
+    logger (1.6.5)
     loofah (2.24.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -162,17 +171,12 @@ GEM
     marcel (1.0.4)
     matrix (0.4.2)
     method_source (1.1.0)
-    mime-types (3.6.0)
-      logger
-      mime-types-data (~> 3.2015)
-    mime-types-data (3.2024.1203)
     mini_magick (4.13.2)
     mini_mime (1.1.5)
     minitest (5.25.4)
     msgpack (1.7.5)
     multipart-post (2.4.1)
-    mustermann (1.1.2)
-      ruby2_keywords (~> 0.0.1)
+    mutex_m (0.3.0)
     net-http (0.6.0)
       uri
     net-imap (0.5.5)
@@ -184,7 +188,6 @@ GEM
       timeout
     net-smtp (0.5.0)
       net-protocol
-    netrc (0.11.0)
     nio4r (2.7.4)
     nokogiri (1.18.1-aarch64-linux-gnu)
       racc (~> 1.4)
@@ -207,6 +210,7 @@ GEM
     parser (3.3.6.0)
       ast (~> 2.4.1)
       racc
+    pg (1.5.9)
     public_suffix (6.0.1)
     puma (5.6.9)
       nio4r (~> 2.0)
@@ -214,8 +218,6 @@ GEM
     rack (2.2.10)
     rack-mini-profiler (2.3.4)
       rack (>= 1.2.0)
-    rack-protection (2.0.8.1)
-      rack
     rack-proxy (0.7.7)
       rack
     rack-test (2.2.0)
@@ -267,18 +269,10 @@ GEM
     rb-fsevent (0.11.2)
     rb-inotify (0.11.1)
       ffi (~> 1.0)
-    refile-mini_magick (0.2.0)
-      mini_magick (~> 4.0)
-      refile (~> 0.5)
     regexp_parser (2.10.0)
     responders (3.1.1)
       actionpack (>= 5.2)
       railties (>= 5.2)
-    rest-client (2.1.0)
-      http-accept (>= 1.7.0, < 2.0)
-      http-cookie (>= 1.0.2, < 2.0)
-      mime-types (>= 1.16, < 4.0)
-      netrc (~> 0.8)
     rexml (3.4.0)
     rspec-core (3.13.2)
       rspec-support (~> 3.13.0)
@@ -297,7 +291,7 @@ GEM
       rspec-mocks (~> 3.13)
       rspec-support (~> 3.13)
     rspec-support (3.13.2)
-    rubocop (1.69.2)
+    rubocop (1.70.0)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
       parallel (~> 1.10)
@@ -340,8 +334,10 @@ GEM
       faraday (>= 1)
       faraday-multipart (>= 1)
     ruby-progressbar (1.13.0)
-    ruby2_keywords (0.0.5)
-    rubyzip (2.4)
+    ruby-vips (2.2.2)
+      ffi (~> 1.12)
+      logger
+    rubyzip (2.4.1)
     sass-rails (6.0.0)
       sassc-rails (~> 2.1, >= 2.1.1)
     sassc (2.4.0)
@@ -359,11 +355,6 @@ GEM
     semantic_range (3.1.0)
     shoulda-matchers (5.3.0)
       activesupport (>= 5.2.0)
-    sinatra (2.0.8.1)
-      mustermann (~> 1.0)
-      rack (~> 2.0)
-      rack-protection (= 2.0.8.1)
-      tilt (~> 2.0)
     spring (4.2.1)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
@@ -385,6 +376,8 @@ GEM
     turbolinks-source (5.2.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
+    uglifier (4.2.1)
+      execjs (>= 0.3.0, < 3)
     unicode-display_width (3.1.3)
       unicode-emoji (~> 4.0, >= 4.0.4)
     unicode-emoji (4.0.4)
@@ -428,6 +421,8 @@ PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
+  aws-sdk-s3 (~> 1.0)
+  bigdecimal
   bootsnap (>= 1.4.4)
   bundler (~> 2.5)
   byebug
@@ -438,8 +433,11 @@ DEPENDENCIES
   factory_bot_rails (~> 6.1)
   faker (~> 2.0)
   font-awesome-sass (~> 6.0)
+  image_processing (~> 1.2)
   jbuilder (~> 2.7)
   listen (~> 3.3)
+  mutex_m
+  pg
   puma (~> 5.0)
   rack-mini-profiler (~> 2.0)
   rails (~> 6.1.7, >= 6.1.7.8)
@@ -447,8 +445,6 @@ DEPENDENCIES
   rails-erd (~> 1.6)
   rails_12factor
   rake
-  refile!
-  refile-mini_magick
   rspec-rails (~> 6.1.3)
   rubocop
   rubocop-airbnb
@@ -462,6 +458,8 @@ DEPENDENCIES
   sqlite3 (~> 1.4)
   turbolinks (~> 5)
   tzinfo-data
+  uglifier
+  uri (~> 1.0.2)
   web-console (>= 4.1.0)
   webdrivers
   webpacker (~> 5.0)
@@ -470,4 +468,4 @@ RUBY VERSION
    ruby 3.3.6p108
 
 BUNDLED WITH
-   2.5.22
+   2.5.23

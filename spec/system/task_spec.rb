@@ -3,7 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe 'タスク', type: :system do
-  let(:user) { User.create(email: 'test@example.com', password: 'password123', password_confirmation: 'password123') }
+  let(:user) do
+    User.create(username: 'Test user', email: 'test@example.com', password: 'password123',
+                password_confirmation: 'password123')
+  end
 
   before do
     sign_in user

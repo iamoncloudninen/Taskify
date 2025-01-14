@@ -3,7 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe 'タイムライン', type: :system do
-  let(:user) { User.create(email: 'test@example.com', password: 'password123', password_confirmation: 'password123') }
+  let(:user) do
+    User.create(username: 'Test user', email: 'test@example.com', password: 'password123',
+                password_confirmation: 'password123')
+  end
   let!(:task) do
     user.tasks.create(content: '本日達成したタスク', deadline: Time.zone.now.end_of_day, priority: false, completed: true,
                       completed_at: Time.zone.now.beginning_of_day)

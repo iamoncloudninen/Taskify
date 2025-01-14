@@ -2,8 +2,8 @@
 <% @timeline_posts.each do |post| %>
   <div class="timeline-post">
     <div class="post-header">
-      <%= attachment_image_tag post.user, :profile_image, fallback: "no_image.png", size: "50x50", class: "profile-img" %>
-      <%= link_to post.user.username, user_path(post.user), class: "username-link" %>
+    <%= image_tag post.user.profile_image.attached? ? url_for(post.user.profile_image) : asset_path("no_image.png"), size: "50x50", class: "profile-img" %>
+    <%= link_to post.user.username, user_path(post.user), class: "username-link" %>
       <% if post.user == current_user %>
         <%= link_to timeline_path(post), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "delete-btn" do %>
           <i class="fa fa-trash"></i>
@@ -14,7 +14,7 @@
       <p class="task-header">達成したタスク:</p>
       <ul class="task-list">
         <% post.tasks.each do |task| %>
-          <li><%= task.content %></li>
+          <li>・<%= task.content %></li>
         <% end %>
       </ul>
 
@@ -25,9 +25,11 @@
       <% if post.images.attached? %>
         <div class="attached-images">
           <p class="attached-title">添付画像:</p>
-          <% post.images.each do |image| %>
-            <%= image_tag url_for(image), alt: "添付画像", class: "image" %>
-          <% end %>
+          <div class="image-gallery <%= 'single-image' if post.images.count == 1 %>">
+            <% post.images.each do |image| %>
+              <%= image_tag url_for(image), alt: "添付画像", class: "image" %>
+            <% end %>
+          </div>        
         </div>
       <% end %>
       <p class="post-time">投稿日時: <%= post.created_at.strftime("%Y/%m/%d %H:%M") %></p>
@@ -44,7 +46,7 @@
         <ul>
           <% post.reactions.includes(:user).group_by(&:user).each do |user, reactions| %>
             <li>
-              <%= attachment_image_tag user, :profile_image, fallback: "no_image.png", size: "20x20", class: "profile-img" %>
+              <%= image_tag user.profile_image.attached? ? url_for(user.profile_image) : asset_path("no_image.png"), size: "20x20", class: "profile-img" %>
               <%= user.username %> <%= reactions.count %>回
             </li>
           <% end %>

@@ -3,7 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe 'Devise関連のテスト', type: :system do
-  let!(:user) { User.create(username: 'Test user', email: 'test@example.com', password: 'password123') }
+  let!(:user) do
+    User.create(username: 'Test user', email: 'test@example.com', password: 'password123',
+                password_confirmation: 'password123')
+  end
 
   describe 'ユーザーのサインイン' do
     it '正しいメールアドレスとパスワードでサインインできること' do

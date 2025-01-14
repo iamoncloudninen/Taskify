@@ -3,13 +3,17 @@
 require 'rails_helper'
 
 RSpec.describe 'Users', type: :request do
-  let(:user) { User.create(email: 'test@example.com', password: 'password123', password_confirmation: 'password123') }
+  let(:user) do
+    User.create(username: 'Test user', email: 'test@example.com', password: 'password123',
+                password_confirmation: 'password123')
+  end
 
   describe '新規登録のテスト' do
     context '有効なパラメータの場合' do
       it '新規登録に成功すること' do
         user_params = {
           user: {
+            username: 'Test user',
             email: 'test@example.com',
             password: 'password123',
             password_confirmation: 'password123'
@@ -26,6 +30,7 @@ RSpec.describe 'Users', type: :request do
       it '新規登録に失敗すること' do
         user_params = {
           user: {
+            username: 'Test user',
             email: 'test@example.com',
             password: 'password123',
             password_confirmation: 'wrongpassword'

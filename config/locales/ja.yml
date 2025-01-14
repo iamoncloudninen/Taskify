@@ -16,6 +16,7 @@ ja:
         task_ids: タスク
         images: 画像
       user:
+        username: ユーザーネーム
         email: メールアドレス
         password: パスワード
         password_confirmation: 確認用パスワード
@@ -81,4 +82,5 @@ ja:
       user:
         already_authenticated: 'すでにログインしています。'
         invalid: "無効なメールアドレスかパスワードです"
+        not_found_in_database: "ユーザーがデータベースに見つかりませんでした"
       invalid: "無効なログイン情報です"

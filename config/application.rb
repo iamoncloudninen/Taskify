@@ -24,4 +24,7 @@ module Taskify
     config.active_record.default_timezone = :local
     config.i18n.default_locale = :ja
   end
+  Rails.application.config.generators do |g|
+    g.orm :active_record, primary_key_type: :uuid
+  end
 end

@@ -69,10 +69,23 @@
   margin-bottom: 10px;
 }
 
+.image-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
 .image {
-  width: 100%;
-  max-width: 300px;
   margin-bottom: 10px;
+  max-width: 100%;
+}
+
+.image-gallery.single-image .image {
+  width: 100%;
+}
+
+.image-gallery:not(.single-image) .image {
+  width: 45%;
 }
 
 .post-time {

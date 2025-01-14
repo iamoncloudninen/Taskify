@@ -9,7 +9,7 @@ class UsersController < ApplicationController
             else
               User.find(params[:id])
             end
-    @timeline_posts = @user.timeline_post.order(created_at: :desc)
+    @timeline_posts = @user.timeline_post.includes(:tasks, :images_attachments, :reactions).order(created_at: :desc)
   end
 
   def edit; end
@@ -18,7 +18,8 @@ class UsersController < ApplicationController
     if @user.update(user_params)
       redirect_to user_path(@user), notice: 'プロフィールを更新しました。'
     else
-      render :edit, alert: '更新に失敗しました。'
+      flash.now[:alert] = '更新に失敗しました。'
+      render :edit
     end
   end
 
