@@ -86,6 +86,10 @@
       <td>クラウドストレージ</td>
       <td>AWS S3</td>
     </tr>
+    <tr>
+      <td>その他</td>
+      <td>OpenAI API</td>
+    </tr>
   </tbody>
 </table>
 <br><br>
